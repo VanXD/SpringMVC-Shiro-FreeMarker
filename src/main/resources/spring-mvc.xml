@@ -37,7 +37,7 @@
     </bean>
     <!-- Freemarker的配置 -->
     <bean id="freemarkerConfigurer"
-          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+          class="com.xiaodongchu.component.ShiroTagFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/views/" />
         <property name="defaultEncoding" value="utf-8" />
         <property name="freemarkerSettings" ref="freemarkerConfiguration" />

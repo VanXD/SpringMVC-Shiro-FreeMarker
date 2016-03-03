@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+    <@shiro.hasRole name="admin">
+        admin
+    </@shiro.hasRole>
+    <@shiro.hasPermission name="user:create">
+user:create
+    </@shiro.hasPermission>
+</body>
+</html>

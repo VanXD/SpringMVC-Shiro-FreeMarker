@@ -81,11 +81,7 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
-        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -158,6 +154,15 @@
             <artifactId>spring-context-support</artifactId>
             <version>4.0.0.RELEASE</version>
         </dependency>
+        <!-- native dependency start -->
+        <dependency>
+            <groupId>shiro-freemarker-tags</groupId>
+            <artifactId>shiro-freemarker-tags</artifactId>
+            <version>0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/shiro-freemarker-tags-0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <!-- native dependency end -->
     </dependencies>
     <build>
         <finalName>The-procurement-system-of-electronic-control-equipment</finalName>
