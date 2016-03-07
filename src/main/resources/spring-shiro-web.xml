@@ -81,6 +81,7 @@
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="loginUrl" value="/user/login"/>
+        <property name="successUrl" value="/index" />
     </bean>
 
     <!-- Shiro的Web过滤器 -->
@@ -95,6 +96,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /resources/** = anon
                 /index = anon
                 /unauthorized = anon
                 /user/login = authc

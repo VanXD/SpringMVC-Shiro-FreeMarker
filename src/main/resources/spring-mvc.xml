@@ -22,6 +22,7 @@
     </bean>
 
     <mvc:annotation-driven/>
+    <mvc:resources location="/resources/" mapping="/resources/**" cache-period="604800" />
     <!--<mvc:view-controller path="/" view-name="index"/>-->
 
     <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
