@@ -1,7 +1,10 @@
 package com.xiaodongchu.service;
 
 import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
+import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,7 +32,7 @@ public interface UserService {
      * @param userId
      * @param roleIds
      */
-    public void correlationRoles(Long userId, Long... roleIds);
+    public int[] correlationRoles(Long userId, Long... roleIds);
 
 
     /**
@@ -60,4 +63,5 @@ public interface UserService {
      */
     public Set<String> findPermissions(String username);
 
+    List<UserRoleVO> roleList(User userExample, Page page);
 }

@@ -1,9 +1,9 @@
 package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -53,16 +54,24 @@ public class UserDaoImpl extends JdbcDaoSupportAbstract implements UserDao {
     }
 
     @Override
-    public void correlationRoles(Long userId, Long... roleIds) {
+    public int[] correlationRoles(Long userId, Long... roleIds) {
+        int[] rows = new int[0];
         if(roleIds == null || roleIds.length == 0) {
-            return;
+            return rows;
         }
+        List<Object[]> params = new LinkedList<>();
         String sql = "insert into sys_users_roles(user_id, role_id) values(?,?)";
+//        getJdbcTemplate().batchUpdate()
         for(Long roleId : roleIds) {
             if(!exists(userId, roleId)) {
-                getJdbcTemplate().update(sql, userId, roleId);
+                params.add(new Object[]{userId, roleId});
             }
         }
+        if(params.size() > 0) {
+            rows = getJdbcTemplate().batchUpdate(sql, params);
+        }
+
+        return rows;
     }
 
     @Override
@@ -116,4 +125,16 @@ public class UserDaoImpl extends JdbcDaoSupportAbstract implements UserDao {
         String sql = "select permission from sys_users u, sys_roles r, sys_permissions p, sys_users_roles ur, sys_roles_permissions rp where u.username=? and u.id=ur.user_id and r.id=ur.role_id and r.id=rp.role_id and p.id=rp.permission_id";
         return new HashSet(getJdbcTemplate().queryForList(sql, String.class, username));
     }
+
+    @Override
+    public List<User> pageByExample(User userExample, Page page) {
+        StringBuilder sql = new StringBuilder("SELECT su.id, su.username FROM sys_users su");
+        StringBuilder orderSQL = new StringBuilder("");
+        List<Object> params = new LinkedList<>();
+        if(page != null) {
+            setPageParams(page, sql.toString(), orderSQL, params);
+        }
+        return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(User.class));
+    }
+
 }

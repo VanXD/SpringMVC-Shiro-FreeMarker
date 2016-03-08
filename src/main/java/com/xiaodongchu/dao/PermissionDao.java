@@ -1,6 +1,11 @@
 package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.Permission;
+import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
+import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
+
+import java.util.List;
 
 /**
  * <p>User: Zhang Kaitao
@@ -13,4 +18,7 @@ public interface PermissionDao {
 
     public void deletePermission(Long permissionId);
 
+    List<UserRoleVO> pageByExample(User userExample, Permission permissionExample, Page page);
+
+    List<Permission> selectAll();
 }

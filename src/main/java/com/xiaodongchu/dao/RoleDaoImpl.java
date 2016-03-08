@@ -1,14 +1,15 @@
 package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.Role;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * <p>User: Zhang Kaitao
@@ -71,6 +72,18 @@ public class RoleDaoImpl extends JdbcDaoSupportAbstract implements RoleDao {
                 getJdbcTemplate().update(sql, roleId, permissionId);
             }
         }
+    }
+
+    @Override
+    public List<Role> selectAll() {
+        String sql = "SELECT id, role, description, available FROM sys_roles WHERE available = 1";
+        return getJdbcTemplate().query(sql, BeanPropertyRowMapper.newInstance(Role.class));
+    }
+
+    @Override
+    public List<Role> selectByUserId(Long userId) {
+        StringBuilder sql = new StringBuilder("SELECT sr.id, sr.role, sr.description, sr.available FROM sys_users su LEFT JOIN sys_users_roles sur ON su.id = sur.user_id LEFT JOIN sys_roles sr ON sr.id = sur.role_id WHERE su.id = ?");
+        return getJdbcTemplate().query(sql.toString(), new Object[]{userId}, BeanPropertyRowMapper.newInstance(Role.class));
     }
 
     private boolean exists(Long roleId, Long permissionId) {

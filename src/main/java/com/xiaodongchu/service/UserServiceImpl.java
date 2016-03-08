@@ -1,11 +1,17 @@
 package com.xiaodongchu.service;
 
+import com.xiaodongchu.dao.RoleDao;
 import com.xiaodongchu.dao.UserDao;
+import com.xiaodongchu.entity.Role;
 import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
+import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,6 +24,8 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
 
     @Autowired
     private PasswordHelper passwordHelper;
@@ -49,8 +57,8 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @param roleIds
      */
-    public void correlationRoles(Long userId, Long... roleIds) {
-        userDao.correlationRoles(userId, roleIds);
+    public int[] correlationRoles(Long userId, Long... roleIds) {
+        return userDao.correlationRoles(userId, roleIds);
     }
 
 
@@ -90,4 +98,19 @@ public class UserServiceImpl implements UserService {
         return userDao.findPermissions(username);
     }
 
+    @Override
+    public List<UserRoleVO> roleList(User userExample, Page page) {
+        List<User> users = userDao.pageByExample(userExample, page);
+        List<UserRoleVO> userRoleVOList = new LinkedList<>();
+        UserRoleVO userRoleVO = null;
+        for(User user : users) {
+            List<Role> roles = roleDao.selectByUserId(user.getId());
+            userRoleVO = new UserRoleVO();
+            userRoleVO.setUserId(user.getId());
+            userRoleVO.setUsername(user.getUsername());
+            userRoleVO.setRoles(roles);
+            userRoleVOList.add(userRoleVO);
+        }
+        return userRoleVOList;
+    }
 }

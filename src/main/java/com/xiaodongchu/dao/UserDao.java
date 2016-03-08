@@ -1,7 +1,9 @@
 package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,7 +17,7 @@ public interface UserDao {
     public void updateUser(User user);
     public void deleteUser(Long userId);
 
-    public void correlationRoles(Long userId, Long... roleIds);
+    public int[] correlationRoles(Long userId, Long... roleIds);
     public void uncorrelationRoles(Long userId, Long... roleIds);
 
     User findOne(Long userId);
@@ -25,4 +27,6 @@ public interface UserDao {
     Set<String> findRoles(String username);
 
     Set<String> findPermissions(String username);
+
+    List<User> pageByExample(User userExample, Page page);
 }

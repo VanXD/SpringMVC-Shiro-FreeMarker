@@ -2,6 +2,8 @@ package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.Role;
 
+import java.util.List;
+
 /**
  * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
@@ -15,4 +17,7 @@ public interface RoleDao {
     public void correlationPermissions(Long roleId, Long... permissionIds);
     public void uncorrelationPermissions(Long roleId, Long... permissionIds);
 
+    public List<Role> selectAll();
+
+    List<Role> selectByUserId(Long userId);
 }

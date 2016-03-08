@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
@@ -41,6 +43,11 @@ public class RoleServiceImpl implements RoleService {
      */
     public void uncorrelationPermissions(Long roleId, Long... permissionIds) {
         roleDao.uncorrelationPermissions(roleId, permissionIds);
+    }
+
+    @Override
+    public List<Role> list() {
+        return roleDao.selectAll();
     }
 
 }

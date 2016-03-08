@@ -1,17 +1,22 @@
 package com.xiaodongchu.dao;
 
 import com.xiaodongchu.entity.Permission;
+import com.xiaodongchu.entity.User;
+import com.xiaodongchu.vo.page.Page;
+import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
  * <p>Version: 1.0
  */
@@ -44,6 +49,29 @@ public class PermissionDaoImpl extends JdbcDaoSupportAbstract implements Permiss
 
         sql = "delete from sys_permissions where id=?";
         getJdbcTemplate().update(sql, permissionId);
+    }
+
+    @Override
+    public List<UserRoleVO> pageByExample(User userExample, Permission permissionExample, Page page) {
+        StringBuilder sql = new StringBuilder("SELECT su.id userId, su.username, su.password, su.salt, su.locked, sr.role, sr.description roleDescription" +
+                " FROM sys_users su LEFT JOIN sys_users_roles sur ON su.id = sur.user_id LEFT JOIN sys_roles sr ON sur.role_id = sr.id" +
+                " WHERE sr.available = 1");
+        StringBuilder orderSQL = new StringBuilder("");
+        List<Object> params = new LinkedList<>();
+        if(page != null) {
+            setPageParams(page, sql.toString(), orderSQL, params);
+        }
+        try {
+            return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(UserRoleVO.class));
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Permission> selectAll() {
+        String sql = "SELECT id, permission, description, available FROM sys_permissions";
+        return getJdbcTemplate().query(sql, BeanPropertyRowMapper.newInstance(Permission.class));
     }
 
 }

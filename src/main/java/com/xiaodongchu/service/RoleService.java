@@ -2,6 +2,8 @@ package com.xiaodongchu.service;
 
 import com.xiaodongchu.entity.Role;
 
+import java.util.List;
+
 /**
  * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
@@ -27,4 +29,5 @@ public interface RoleService {
      */
     public void uncorrelationPermissions(Long roleId, Long... permissionIds);
 
+    public List<Role> list();
 }
