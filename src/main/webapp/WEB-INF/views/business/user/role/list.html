@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>用户角色管理</title>
+    <title>角色管理</title>
     <#include "/common/head.html" />
 </head>
 
@@ -42,7 +42,7 @@
             <div class="row-fluid sortable">
                 <div class="box span12">
                     <div class="box-header" data-original-title>
-                        <h2><i class="halflings-icon user"></i><span class="break"></span>权限</h2>
+                        <h2><i class="halflings-icon user"></i><span class="break"></span>角色</h2>
                         <div class="box-icon">
                             <a href="#" class="" onclick="saveShow()"><i class="halflings-icon plus"></i></a>
                             <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -54,8 +54,8 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>权限标识</th>
-                                <th>权限描述</th>
+                                <th>角色</th>
+                                <th>角色描述</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -63,10 +63,10 @@
                             <#list list as e>
                                 <tr>
                                     <td>${e_index + 1}</td>
-                                    <td class="center">${e.permission!""}</td>
+                                    <td class="center">${e.role!""}</td>
                                     <td class="center">${e.description!""}</td>
                                     <td>
-                                        <a href="#" class="btn btn-danger" onclick="ajax('/permission/delete', 'get', {id : ${e.id!''}})">
+                                        <a href="#" class="btn btn-danger" onclick="ajax('/role/delete', 'get', {id : ${e.id!''}})">
                                             <i class="halflings-icon white trash"></i>
                                         </a>
                                     </td>
@@ -88,24 +88,24 @@
 </div>
 <!--/fluid-row-->
 
-<div class="modal hide fade" id="save-permission-modal">
+<div class="modal hide fade" id="save-role-modal">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h3>添加权限</h3>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" id="save-permission-form">
+        <form class="form-horizontal" id="save-role-form">
             <fieldset>
                 <div class="control-group">
-                    <label for="permission" class="control-label">权限标识</label>
+                    <label for="role" class="control-label">角色标识</label>
                     <div class="controls">
-                        <input type="text" placeholder="请输入权限标识" name="permission" id="permission" class="input-xlarge focused">
+                        <input type="text" placeholder="请输入角色标识" name="role" id="role" class="input-xlarge focused">
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="description" class="control-label">权限描述</label>
                     <div class="controls">
-                        <input type="text" placeholder="请输入对该权限的描述" name="description" id="description" class="input-xlarge focused">
+                        <input type="text" placeholder="请输入对该角色的描述" name="description" id="description" class="input-xlarge focused">
                     </div>
                 </div>
             </fieldset>
@@ -120,11 +120,11 @@
 <#include "/common/footer.html" />
 <script>
     function saveShow() {
-        $("#save-permission-modal").modal();
+        $("#save-role-modal").modal();
     }
 
     function save() {
-        ajax("/permission/save", "POST", decodeURIComponent($("#save-permission-form").serialize()));
+        ajax("/role/save", "POST", decodeURIComponent($("#save-role-form").serialize()));
     }
 
 </script>

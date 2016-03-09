@@ -26,6 +26,7 @@ public class PermissionServiceImpl implements PermissionService {
     private RoleDao roleDao;
 
     public Permission createPermission(Permission permission) {
+        permission.setAvailable(true);
         return permissionDao.createPermission(permission);
     }
 

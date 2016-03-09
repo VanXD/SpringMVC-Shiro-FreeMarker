@@ -43,7 +43,21 @@ jQuery(document).ready(function($){
 		
 	}
 	
-});	
+});
+
+function ajax(url, method, data) {
+	$.ajax({
+		url : url,
+		type : method,
+		data : data,
+		success : function(result) {
+			alert(result.message);
+			if(result.code == 0) {
+				window.location.reload();
+			}
+		}
+	});
+}
 
 $(document).ready(function(){
 		

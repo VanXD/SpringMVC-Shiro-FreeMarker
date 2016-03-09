@@ -20,6 +20,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
 
     public Role createRole(Role role) {
+        role.setAvailable(true);
         return roleDao.createRole(role);
     }
 

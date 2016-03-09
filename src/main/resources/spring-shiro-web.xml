@@ -97,6 +97,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /resources/** = anon
+                /user/register = anon
                 /index = anon
                 /unauthorized = anon
                 /user/login = authc

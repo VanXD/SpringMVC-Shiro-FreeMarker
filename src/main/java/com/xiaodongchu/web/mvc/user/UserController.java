@@ -68,6 +68,18 @@ public class UserController {
         model.addAttribute("list", userRoleVOList);
         String url = PageUtil.getRequestGetUrl(request);
         model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
-        return "business/user/role/manage_user_role";
+        return "business/user/user/user_role";
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "business/user/user/register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(User user) {
+        userService.createUser(user);
+        return "redirect:/index";
     }
 }
