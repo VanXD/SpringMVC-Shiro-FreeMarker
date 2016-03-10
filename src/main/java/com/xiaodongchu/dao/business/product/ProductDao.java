@@ -17,4 +17,6 @@ public interface ProductDao {
     public Integer update (Product product);
 
     public Integer delete (Product product);
+
+    Product findById(Integer id);
 }

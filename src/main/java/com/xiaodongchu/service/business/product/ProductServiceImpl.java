@@ -31,11 +31,24 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Integer update(Product product) {
-        return productDaoImpl.update(product);
+        Product updateProduct = productDaoImpl.findById(product.getId());
+        if(updateProduct == null) {
+            return 0;
+        }
+        updateProduct.setProductAvatar(product.getProductAvatar());
+        updateProduct.setProductContent(product.getProductContent());
+        updateProduct.setProductPrice(product.getProductPrice());
+        updateProduct.setProductTitle(product.getProductTitle());
+        return productDaoImpl.update(updateProduct);
     }
 
     @Override
     public Integer delete(Product product) {
         return productDaoImpl.delete(product);
+    }
+
+    @Override
+    public Product findById(Integer id) {
+        return productDaoImpl.findById(id);
     }
 }

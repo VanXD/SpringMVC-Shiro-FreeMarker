@@ -53,9 +53,11 @@ public enum RespDataCode {
 
 	PRODUCT_SAVE_FAIL(301, "商品保存失败！"),
 
-	PRODUCT_UDPATE_FAIL(301, "商品修改失败！"),
+	PRODUCT_UDPATE_FAIL(302, "商品修改失败！"),
 
-	PRODUCT_DELETE_FAIL(301, "商品删除失败！");
+	PRODUCT_DELETE_FAIL(303, "商品删除失败！"),
+
+	PRODUCT_NOT_EXIST(304, "商品删除失败！");
 
 	
 	

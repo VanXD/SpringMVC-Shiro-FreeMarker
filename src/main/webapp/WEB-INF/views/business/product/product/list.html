@@ -75,7 +75,7 @@
                                     <td class="center">${e.productContent!""}</td>
                                     <td class="center">${e.productCreateTime!""}</td>
                                     <td>
-                                        <a class="btn btn-success" href="#" onclick="editRoles(${e.userId!''})">
+                                        <a class="btn btn-success" href="#" onclick="updateShow(${e.id!''})">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
                                         <a href="#" class="btn btn-danger" onclick="ajax('/product/delete', 'get', {id : ${e.id!''}})">
@@ -118,7 +118,7 @@
                 <div class="control-group">
                     <label for="productPrice" class="control-label">商品价格</label>
                     <div class="controls">
-                        <input type="text" placeholder="请输入商品标题" name="productPrice" id="productPrice" class="input-xlarge focused">
+                        <input type="text" placeholder="请输入商品价格" name="productPrice" id="productPrice" class="input-xlarge focused">
                     </div>
                 </div>
                 <div class="control-group">
@@ -131,7 +131,7 @@
                     <label for="productAvatar" class="control-label">商品展示图片</label>
                     <div class="controls">
                         <input type="file" class="uploadFile" onchange='uploadImg(this, "/util/uploadFile", "productAvatar")'>
-                        <input type="hidden" placeholder="请输入对该商品的描述" name="productAvatar" id="productAvatar" class="input-xlarge focused">
+                        <input type="hidden" name="productAvatar" id="productAvatar" class="input-xlarge focused">
                     </div>
                 </div>
             </fieldset>
@@ -142,6 +142,53 @@
         <a href="#" class="btn btn-primary" onclick="save()">保存</a>
     </div>
 </div>
+
+<div class="modal hide fade" id="update-product-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>保存新商品</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" id="update-product-form">
+            <fieldset id="update-product-fieldset">
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+        <a href="#" class="btn btn-primary" onclick="update()">保存</a>
+    </div>
+</div>
+
+<script type="text/html" id="update-product-fieldset-tmpl">
+    <input type="hidden" name="id" id="id" value="<%= id %>"/>
+    <div class="control-group">
+        <label for="productTitle" class="control-label">商品标题</label>
+        <div class="controls">
+            <input value="<%= productTitle %>" type="text" placeholder="请输入商品标题" name="productTitle" id="update-productTitle" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productPrice" class="control-label">商品价格</label>
+        <div class="controls">
+            <input value="<%= productPrice %>" type="text" placeholder="请输入商品价格" name="productPrice" id="update-productPrice" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productContent" class="control-label">商品描述</label>
+        <div class="controls">
+            <input value="<%= productContent %>" type="text" placeholder="请输入对该商品的描述" name="productContent" id="update-productContent" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productAvatar" class="control-label">商品展示图片</label>
+        <div class="controls">
+            <img class="span2" src='${apiPrefix}<%= productAvatar %>'>
+            <input type="file" class="uploadFile" onchange='uploadImg(this, "/util/uploadFile", "update-productAvatar")'>
+            <input value="<%= productAvatar %>" type="hidden" name="productAvatar" id="update-productAvatar" class="input-xlarge focused">
+        </div>
+    </div>
+</script>
 <#include "/common/footer.html" />
 <script>
     function saveShow() {
@@ -149,6 +196,28 @@
     }
     function save() {
         ajax("/product/save", "POST", decodeURIComponent($("#save-product-form").serialize()));
+    }
+
+    function updateShow(id) {
+        $.ajax({
+            type : "GET",
+            url : "/product/findById",
+            data : {id : id},
+            success : function(result) {
+                if(result.code == 0) {
+                    var product = result.result.product;
+                    var html = template.render("update-product-fieldset-tmpl", product);
+                    $("#update-product-fieldset").html(html);
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+        $("#update-product-modal").modal();
+    }
+
+    function update() {
+        ajax("/product/update", "POST", decodeURIComponent($("#update-product-form").serialize()));
     }
 </script>
 </body>

@@ -35,12 +35,18 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
     @Override
     public Integer update(Product product) {
         String sql = "UPDATE b_product SET product_status = ?, product_title = ?, product_content = ?, product_avatar = ?, product_price = ? WHERE id = ?";
-        return getJdbcTemplate().update(sql, new Object[]{product.getProductStatus(), product.getProductTitle(), product.getProductAvatar(), product.getProductPrice(), product.getId()});
+        return getJdbcTemplate().update(sql, new Object[]{product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice(), product.getId()});
     }
 
     @Override
     public Integer delete(Product product) {
         String sql = "DELETE FROM b_product WHERE id = ?";
         return getJdbcTemplate().update(sql, new Object[]{product.getId()});
+    }
+
+    @Override
+    public Product findById(Integer id) {
+        String sql = "SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price FROM b_product bp WHERE bp.id = ?";
+        return getJdbcTemplate().queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Product.class));
     }
 }

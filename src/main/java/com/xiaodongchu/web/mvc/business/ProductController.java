@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/3/10.
@@ -66,6 +67,18 @@ public class ProductController {
             return new RespJSON<>(RespCode.SUCCESS);
         } else {
             return new RespJSON<>(RespDataCode.PRODUCT_DELETE_FAIL);
+        }
+    }
+
+    @RequestMapping("/findById")
+    @ResponseBody
+    public RespJSON<Map> getProductById(Map map, Integer id) {
+        Product product = productServiceImpl.findById(id);
+        if(product == null) {
+            return new RespJSON<>(RespDataCode.PRODUCT_NOT_EXIST);
+        } else {
+            map.put("product", product);
+            return new RespJSON<>(map);
         }
     }
 }
