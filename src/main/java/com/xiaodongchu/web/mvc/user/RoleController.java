@@ -32,7 +32,7 @@ public class RoleController {
     @RequestMapping("/listModel")
     public String listModel(Model model) {
         model.addAttribute("list", roleService.list());
-        return "business/user/role/list";
+        return "user/role/list";
     }
 
     @RequestMapping("/save")

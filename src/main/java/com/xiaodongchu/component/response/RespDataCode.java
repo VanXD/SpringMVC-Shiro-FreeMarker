@@ -49,7 +49,13 @@ public enum RespDataCode {
 	/** The user fullname use. */
 	USER_FULLNAME_USE(211, "用户呢称已存在"),
 
-	USER_ROLE_CHOOSE(212, "请选择角色！");
+	USER_ROLE_CHOOSE(212, "请选择角色！"),
+
+	PRODUCT_SAVE_FAIL(301, "商品保存失败！"),
+
+	PRODUCT_UDPATE_FAIL(301, "商品修改失败！"),
+
+	PRODUCT_DELETE_FAIL(301, "商品删除失败！");
 
 	
 	

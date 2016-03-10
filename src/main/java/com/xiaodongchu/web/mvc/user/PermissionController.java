@@ -26,7 +26,7 @@ public class PermissionController {
     public String list(Model model) {
         List<Permission> permissions = permissionService.findAll();
         model.addAttribute("list", permissions);
-        return "business/user/permission/list";
+        return "user/permission/list";
     }
 
     @RequestMapping("/save")

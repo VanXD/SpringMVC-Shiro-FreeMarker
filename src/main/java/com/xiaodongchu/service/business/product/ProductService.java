@@ -12,7 +12,7 @@ public interface ProductService {
 
     public List<Product> pageByExample(Product productExample, Page page);
 
-    public Integer insert (Product product);
+    public Integer save(Product product);
 
     public Integer update (Product product);
 

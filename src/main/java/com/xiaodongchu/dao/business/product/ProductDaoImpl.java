@@ -18,7 +18,7 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
     @Override
     public List<Product> pageByExample(Product productExample, Page page) {
         StringBuilder sql = new StringBuilder("SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price FROM b_product bp");
-        StringBuilder orderSQL = new StringBuilder("");
+        StringBuilder orderSQL = new StringBuilder(" ORDER BY bp.product_create_time DESC");
         List<Object> params = new LinkedList<>();
         if(page != null) {
             setPageParams(page, sql.toString(), orderSQL, params);
@@ -28,7 +28,7 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
 
     @Override
     public Integer insert(Product product) {
-        String sql = "INSERT INTO b_product (product_create_time, product_status, product_title, product_content, product_avatar, product_price,) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO b_product (product_create_time, product_status, product_title, product_content, product_avatar, product_price) VALUES(?,?,?,?,?,?)";
         return getJdbcTemplate().update(sql, new Object[]{new Date(), product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice()});
     }
 

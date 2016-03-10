@@ -4,12 +4,16 @@ import com.xiaodongchu.dao.business.product.ProductDao;
 import com.xiaodongchu.entity.business.Product;
 import com.xiaodongchu.vo.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/10.
  */
+@Service
+@Transactional
 public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductDao productDaoImpl;
@@ -20,7 +24,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Integer insert(Product product) {
+    public Integer save(Product product) {
+        product.setProductStatus(0);
         return productDaoImpl.insert(product);
     }
 
