@@ -7,7 +7,7 @@ import com.xiaodongchu.component.util.PageUtil;
 import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.service.user.UserService;
 import com.xiaodongchu.vo.page.Page;
-import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
+import com.xiaodongchu.vo.user.UserRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

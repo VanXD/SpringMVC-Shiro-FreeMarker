@@ -1,4 +1,4 @@
-package com.xiaodongchu.vo.page.vo.user;
+package com.xiaodongchu.vo.user;
 
 import com.xiaodongchu.entity.user.Role;
 

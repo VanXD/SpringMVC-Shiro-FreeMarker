@@ -6,7 +6,7 @@ import com.xiaodongchu.entity.user.Role;
 import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.service.PasswordHelper;
 import com.xiaodongchu.vo.page.Page;
-import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
+import com.xiaodongchu.vo.user.UserRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
