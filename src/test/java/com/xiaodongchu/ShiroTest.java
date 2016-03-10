@@ -1,12 +1,12 @@
 package com.xiaodongchu;
 
-import com.xiaodongchu.entity.Permission;
-import com.xiaodongchu.entity.Role;
-import com.xiaodongchu.entity.User;
+import com.xiaodongchu.entity.user.Permission;
+import com.xiaodongchu.entity.user.Role;
+import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.realm.UserRealm;
-import com.xiaodongchu.service.PermissionService;
-import com.xiaodongchu.service.RoleService;
-import com.xiaodongchu.service.UserService;
+import com.xiaodongchu.service.user.PermissionService;
+import com.xiaodongchu.service.user.RoleService;
+import com.xiaodongchu.service.user.UserService;
 import junit.framework.Assert;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;

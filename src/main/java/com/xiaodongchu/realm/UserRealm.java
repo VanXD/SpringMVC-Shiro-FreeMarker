@@ -1,7 +1,7 @@
 package com.xiaodongchu.realm;
 
-import com.xiaodongchu.entity.User;
-import com.xiaodongchu.service.UserService;
+import com.xiaodongchu.entity.user.User;
+import com.xiaodongchu.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;

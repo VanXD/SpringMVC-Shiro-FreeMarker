@@ -1,6 +1,6 @@
-package com.xiaodongchu.dao;
+package com.xiaodongchu.dao.user;
 
-import com.xiaodongchu.entity.Role;
+import com.xiaodongchu.entity.user.Role;
 
 import java.util.List;
 

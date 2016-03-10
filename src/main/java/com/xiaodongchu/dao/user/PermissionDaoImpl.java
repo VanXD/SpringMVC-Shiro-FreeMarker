@@ -1,7 +1,8 @@
-package com.xiaodongchu.dao;
+package com.xiaodongchu.dao.user;
 
-import com.xiaodongchu.entity.Permission;
-import com.xiaodongchu.entity.User;
+import com.xiaodongchu.dao.JdbcDaoSupportAbstract;
+import com.xiaodongchu.entity.user.Permission;
+import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
 import org.springframework.dao.DataAccessException;

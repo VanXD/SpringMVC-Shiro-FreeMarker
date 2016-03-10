@@ -1,4 +1,4 @@
-package com.xiaodongchu.entity;
+package com.xiaodongchu.entity.user;
 
 import java.io.Serializable;
 

@@ -1,9 +1,10 @@
-package com.xiaodongchu.service;
+package com.xiaodongchu.service.user;
 
-import com.xiaodongchu.dao.RoleDao;
-import com.xiaodongchu.dao.UserDao;
-import com.xiaodongchu.entity.Role;
-import com.xiaodongchu.entity.User;
+import com.xiaodongchu.dao.user.RoleDao;
+import com.xiaodongchu.dao.user.UserDao;
+import com.xiaodongchu.entity.user.Role;
+import com.xiaodongchu.entity.user.User;
+import com.xiaodongchu.service.PasswordHelper;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;

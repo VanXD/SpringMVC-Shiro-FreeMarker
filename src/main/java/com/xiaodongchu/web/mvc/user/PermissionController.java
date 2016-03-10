@@ -2,8 +2,8 @@ package com.xiaodongchu.web.mvc.user;
 
 import com.xiaodongchu.component.response.RespCode;
 import com.xiaodongchu.component.response.RespJSON;
-import com.xiaodongchu.entity.Permission;
-import com.xiaodongchu.service.PermissionService;
+import com.xiaodongchu.entity.user.Permission;
+import com.xiaodongchu.service.user.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,9 +1,9 @@
-package com.xiaodongchu.service;
+package com.xiaodongchu.service.user;
 
-import com.xiaodongchu.dao.PermissionDao;
-import com.xiaodongchu.dao.RoleDao;
-import com.xiaodongchu.dao.UserDao;
-import com.xiaodongchu.entity.Permission;
+import com.xiaodongchu.dao.user.PermissionDao;
+import com.xiaodongchu.dao.user.RoleDao;
+import com.xiaodongchu.dao.user.UserDao;
+import com.xiaodongchu.entity.user.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

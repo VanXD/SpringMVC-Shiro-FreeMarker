@@ -2,8 +2,8 @@ package com.xiaodongchu.web.mvc.user;
 
 import com.xiaodongchu.component.response.RespCode;
 import com.xiaodongchu.component.response.RespJSON;
-import com.xiaodongchu.entity.Role;
-import com.xiaodongchu.service.RoleService;
+import com.xiaodongchu.entity.user.Role;
+import com.xiaodongchu.service.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

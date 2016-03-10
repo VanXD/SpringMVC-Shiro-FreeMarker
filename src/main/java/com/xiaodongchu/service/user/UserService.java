@@ -1,6 +1,6 @@
-package com.xiaodongchu.service;
+package com.xiaodongchu.service.user;
 
-import com.xiaodongchu.entity.User;
+import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.page.vo.user.UserRoleVO;
 

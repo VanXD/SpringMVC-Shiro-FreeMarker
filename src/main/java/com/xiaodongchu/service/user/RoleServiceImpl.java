@@ -1,7 +1,7 @@
-package com.xiaodongchu.service;
+package com.xiaodongchu.service.user;
 
-import com.xiaodongchu.dao.RoleDao;
-import com.xiaodongchu.entity.Role;
+import com.xiaodongchu.dao.user.RoleDao;
+import com.xiaodongchu.entity.user.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
