@@ -39,6 +39,18 @@ public class ProductController {
         model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
         return "business/product/product/list";
     }
+    @RequestMapping("/list")
+    @ResponseBody
+    public String list(HttpServletRequest request, Model model, Product productExample,boolean isJson,
+                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        Page page = new Page(pageNo, pageSize);
+        List<Product> products = productServiceImpl.pageByExample(productExample, page);
+        model.addAttribute("list", products);
+        String url = PageUtil.getRequestGetUrl(request);
+        model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
+        return "business/product/product/list";
+    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody

@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <#include "/common/head.html" />
     <title>欢迎光临！</title>
+    <style type="text/css">
+        .hero-bg {
+            background-image: url("/resources/img/upload/555.jpg");
+            background-repeat: no-repeat;
+            -webkit-background-size: 100%, 100%;
+            background-size: 100%, 100%;
+        }
+    </style>
 </head>
 <body>
 <div class="navbar">
@@ -19,11 +27,6 @@
             <!-- start: Header Menu -->
             <div class="nav-no-collapse header-nav">
                 <ul class="nav pull-right">
-                    <li class="dropdown hidden-phone">
-                        <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
-                            <i class="halflings-icon white warning-sign"></i>
-                        </a>
-                    </li>
                     <!-- start: User Dropdown -->
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
@@ -47,21 +50,8 @@
     </div>
 </div>
 <div class="head">
-    <div class="hero-unit">
-            <h1>Heading</h1>
+    <div class="hero-unit hero-bg" style="height: 300px;">
 
-        <p>Tagline</p>
-
-        <p>
-            <a class="btn btn-primary btn-large">
-                Learn more
-            </a>
-        </p>
-        <p>
-            <a class="btn btn-primary btn-large">
-                Learn more
-            </a>
-        </p>
     </div>
 </div>
 <div class="body container">
@@ -100,7 +90,31 @@
         </ul>
     </div>
 </div>
-
+<script type="text/html" id="product-list-tmpl">
+    <ul class="thumbnails">
+        <li class="span4">
+            <div class="thumbnail">
+                <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="data:image/png;base64,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">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a></p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</script>
 <#include "/common/footer.html" />
+<script>
+    $(function(){
+        initProductList();
+    });
+
+    function initProductList() {
+        $.ajax({
+            url : ""
+        });
+    }
+</script>
 </body>
 </html>
