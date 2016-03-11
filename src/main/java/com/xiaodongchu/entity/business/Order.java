@@ -8,6 +8,9 @@ import java.util.Date;
 public class Order {
     private Long id;
     private Date orderCreateTime;
+    /**
+     * 0：新，1：发货 2：完成
+     */
     private Integer orderStatus;
     private String orderReceiveAddress;
     private String orderReceiveTel;

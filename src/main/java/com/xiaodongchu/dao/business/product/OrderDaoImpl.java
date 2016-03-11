@@ -4,6 +4,7 @@ import com.xiaodongchu.dao.JdbcDaoSupportAbstract;
 import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.vo.page.Page;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/10.
  */
+@Repository
 public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
 
     @Override
