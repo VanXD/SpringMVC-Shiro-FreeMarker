@@ -18,5 +18,5 @@ public interface ProductService {
 
     public Integer delete (Product product);
 
-    Product findById(Integer id);
+    Product findById(Long id);
 }

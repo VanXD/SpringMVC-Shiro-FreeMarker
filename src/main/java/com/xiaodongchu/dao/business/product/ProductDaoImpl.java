@@ -45,7 +45,7 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
     }
 
     @Override
-    public Product findById(Integer id) {
+    public Product findById(Long id) {
         String sql = "SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price FROM b_product bp WHERE bp.id = ?";
         return getJdbcTemplate().queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Product.class));
     }

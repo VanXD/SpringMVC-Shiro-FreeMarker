@@ -72,7 +72,7 @@ public class ProductController {
 
     @RequestMapping("/findById")
     @ResponseBody
-    public RespJSON<Map> getProductById(Map map, Integer id) {
+    public RespJSON<Map> getProductById(Map map, Long id) {
         Product product = productServiceImpl.findById(id);
         if(product == null) {
             return new RespJSON<>(RespDataCode.PRODUCT_NOT_EXIST);
