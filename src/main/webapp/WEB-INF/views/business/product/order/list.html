@@ -54,6 +54,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>购买人</th>
                                 <th>收货电话</th>
                                 <th>收货地址</th>
                                 <th>快递单号</th>
@@ -67,6 +68,7 @@
                             <#list list as e>
                                 <tr>
                                     <td>${e_index + 1}</td>
+                                    <td>${e.username}</td>
                                     <td class="center">${e.orderReceiveTel!""}</td>
                                     <td class="center">${e.orderReceiveAddress!""}</td>
                                     <td class="center">${e.orderExpressNumber!""}</td>

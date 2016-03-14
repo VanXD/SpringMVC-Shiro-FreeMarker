@@ -17,7 +17,7 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
 
     @Override
     public List<Order> pageByExample(Order orderExample, Page page) {
-        StringBuilder sql = new StringBuilder("SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price FROM b_order bo");
+        StringBuilder sql = new StringBuilder("SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price, su.id userId, su.username FROM b_order bo LEFT JOIN sys_users su ON bo.user_id = su.id");
         StringBuilder orderSQL = new StringBuilder(" ORDER BY bo.order_create_time DESC");
         List<Object> params = new LinkedList<>();
         if(page != null) {
