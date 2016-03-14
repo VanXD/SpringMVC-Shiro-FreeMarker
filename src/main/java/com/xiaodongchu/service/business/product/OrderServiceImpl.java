@@ -1,8 +1,10 @@
 package com.xiaodongchu.service.business.product;
 
 import com.xiaodongchu.dao.business.product.OrderDao;
+import com.xiaodongchu.dao.business.product.ProductDao;
 import com.xiaodongchu.dao.business.product.ProductOrderDao;
 import com.xiaodongchu.entity.business.Order;
+import com.xiaodongchu.entity.business.Product;
 import com.xiaodongchu.entity.business.ProductOrderDetail;
 import com.xiaodongchu.vo.business.product.ProductOrderVO;
 import com.xiaodongchu.vo.page.Page;
@@ -23,6 +25,8 @@ public class OrderServiceImpl implements OrderService{
     private OrderDao orderDaoImpl;
     @Autowired
     private ProductOrderDao productOrderDaoImpl;
+    @Autowired
+    private ProductDao productDaoImp;
 
     @Override
     public List<Order> pageByExample(Order orderExample, Page page) {
@@ -76,10 +80,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void generateOrder(String[] productIds, Integer[] productAmount) {
-        Order order = new Order();
+    public Order generateOrder(Order order, Long[] productIds, Integer[] productAmount) {
         order.setOrderCreateTime(new Date());
         order.setOrderStatus(0);
-        order.
+        double totalPrice = 0;
+        for(int i = 0;i < productIds.length ;i++) {
+            Product product = productDaoImp.findById(productIds[i]);
+            if(product != null) {
+                totalPrice += (product.getProductPrice() * productAmount[i]);
+            }
+        }
+        order.setOrderTotalPrice(totalPrice);
+        return orderDaoImpl.insert(order);
     }
+
 }

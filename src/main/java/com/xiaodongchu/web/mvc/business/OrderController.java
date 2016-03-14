@@ -62,7 +62,9 @@ public class OrderController {
     }
 
     @RequestMapping("/buy")
-    public void buy(Order order, String[] productIds, Integer[] productAmount) {
-        orderServiceImpl.generateOrder(productIds, productAmount);
+    public String buy(Model model, Order order, Long[] productIds, Integer[] productAmount) {
+        Order saveOrder = orderServiceImpl.generateOrder(order, productIds, productAmount);
+        model.addAttribute("order", saveOrder);
+        return "";
     }
 }

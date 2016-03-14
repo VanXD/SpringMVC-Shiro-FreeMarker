@@ -27,5 +27,5 @@ public interface OrderService {
 
     public Integer updateOrderStatus(Long orderId, Integer status);
 
-    void generateOrder(String[] productIds, Integer[] productAmount);
+    Order generateOrder(Order order, Long[] productIds, Integer[] productAmount);
 }
