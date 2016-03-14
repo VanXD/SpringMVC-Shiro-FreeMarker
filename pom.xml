@@ -192,6 +192,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
+                    <port>5014</port>
                 </configuration>
             </plugin>
             <plugin>
