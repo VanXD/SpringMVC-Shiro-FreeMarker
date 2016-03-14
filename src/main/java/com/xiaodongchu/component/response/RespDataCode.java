@@ -57,8 +57,7 @@ public enum RespDataCode {
 
 	PRODUCT_DELETE_FAIL(303, "商品删除失败！"),
 
-	PRODUCT_NOT_EXIST(304, "商品删除失败！");
-
+	PRODUCT_NOT_EXIST(304, "商品不存在！");
 	
 	
 	/** 响应代码. */

@@ -13,7 +13,7 @@ public interface OrderService {
 
     public List<Order> pageByExample(Order orderExample, Page page);
 
-    public Integer insert (Order order);
+    public Order insert(Order order);
 
     public Integer update (Order order);
 
@@ -26,4 +26,6 @@ public interface OrderService {
     Integer deliver(Long orderId);
 
     public Integer updateOrderStatus(Long orderId, Integer status);
+
+    void generateOrder(String[] productIds, Integer[] productAmount);
 }

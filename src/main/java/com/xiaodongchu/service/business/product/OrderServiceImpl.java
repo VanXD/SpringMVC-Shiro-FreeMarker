@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Integer insert(Order order) {
+    public Order insert(Order order) {
         return orderDaoImpl.insert(order);
     }
 
@@ -72,5 +73,13 @@ public class OrderServiceImpl implements OrderService{
         }
         order.setOrderStatus(status);
         return orderDaoImpl.update(order);
+    }
+
+    @Override
+    public void generateOrder(String[] productIds, Integer[] productAmount) {
+        Order order = new Order();
+        order.setOrderCreateTime(new Date());
+        order.setOrderStatus(0);
+        order.
     }
 }

@@ -1,11 +1,17 @@
 package com.xiaodongchu.dao.business.product;
 
+import com.xiaodongchu.component.util.DateUtil;
 import com.xiaodongchu.dao.JdbcDaoSupportAbstract;
 import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.vo.page.Page;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,14 +33,25 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
     }
 
     @Override
-    public Integer insert(Order order) {
-        String sql = "INSERT INTO b_order (order_create_time, order_status, order_receive_address, order_receive_tel, order_express_number, order_total_price) VALUES(?,?,?,?,?,?)";
-        return getJdbcTemplate().update(sql, new Object[]{order.getOrderCreateTime(),
-                                             order.getOrderStatus(),
-                                             order.getOrderReceiveAddress(),
-                                             order.getOrderReceiveTel(),
-                                             order.getOrderExpressNumber(),
-                                             order.getOrderTotalPrice()});
+    public Order insert(final Order order) {
+        final String sql = "INSERT INTO b_order (order_create_time, order_status, order_receive_address, order_receive_tel, order_express_number, order_total_price) VALUES(?,?,?,?,?,?)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        getJdbcTemplate().update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement psst = connection.prepareStatement(sql, new String[]{"id"});
+                psst.setString(1, DateUtil.dateToString(order.getOrderCreateTime()));
+                psst.setInt(2, order.getOrderStatus());
+                psst.setString(3, order.getOrderReceiveAddress());
+                psst.setString(4, order.getOrderReceiveTel());
+                psst.setString(5, order.getOrderExpressNumber());
+                psst.setDouble(6, order.getOrderTotalPrice());
+                return psst;
+            }
+        }, keyHolder);
+        order.setId(keyHolder.getKey().longValue());
+
+        return order;
     }
 
     @Override

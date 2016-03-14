@@ -39,18 +39,6 @@ public class ProductController {
         model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
         return "business/product/product/list";
     }
-    @RequestMapping("/list")
-    @ResponseBody
-    public String list(HttpServletRequest request, Model model, Product productExample,boolean isJson,
-                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        Page page = new Page(pageNo, pageSize);
-        List<Product> products = productServiceImpl.pageByExample(productExample, page);
-        model.addAttribute("list", products);
-        String url = PageUtil.getRequestGetUrl(request);
-        model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
-        return "business/product/product/list";
-    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
@@ -93,4 +81,28 @@ public class ProductController {
             return new RespJSON<>(map);
         }
     }
+
+    @RequestMapping("/detail")
+    public String detail(Model model, Long id) {
+        Product product = productServiceImpl.findById(id);
+        model.addAttribute("product", product);
+        return "business/product/product/detail";
+    }
+
+
+    @RequestMapping("/listJson")
+    @ResponseBody
+    public RespJSON<Map> listJson(Map map,
+                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                        @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+        Page page = new Page(pageNo, pageSize);
+        List<Product> products = productServiceImpl.pageByExample(null, page);
+        if(products == null || products.size() == 0) {
+            return new RespJSON<>(RespDataCode.PRODUCT_NOT_EXIST);
+        }
+        map.put("list", products);
+        map.put("page", page);
+        return new RespJSON<>(map);
+    }
+
 }

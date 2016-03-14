@@ -12,7 +12,7 @@ public interface OrderDao {
 
     public List<Order> pageByExample(Order orderExample, Page page);
 
-    public Integer insert (Order order);
+    public Order insert(Order order);
 
     public Integer update (Order order);
 

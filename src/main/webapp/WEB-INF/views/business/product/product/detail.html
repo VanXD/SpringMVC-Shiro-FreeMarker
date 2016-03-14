@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <#include "/common/head.html" />
-    <title>欢迎光临！</title>
-    <style type="text/css">
-        .hero-bg {
-            background-image: url("/resources/img/upload/555.jpg");
-            background-repeat: no-repeat;
-            -webkit-background-size: 100%, 100%;
-            background-size: 100%, 100%;
-        }
-    </style>
+    <title>商品详情</title>
+    <link rel="stylesheet" href="/resources/css/business/detail.css"/>
 </head>
 <body>
+<div class="mask"></div>
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -32,7 +26,7 @@
                         <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
                             <i class="halflings-icon white user"></i>
                             <@shiro.user><@shiro.principal/></@shiro.user>
-                            <span class="caret"></span>
+                        <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-menu-title">
@@ -50,14 +44,27 @@
         </div>
     </div>
 </div>
-<div class="head">
-    <div class="hero-unit hero-bg" style="height: 300px;">
-
-    </div>
-</div>
 <div class="body container">
-    <div class="row-fluid" id="product-list">
+    <div class="row-fluid">
+        <div class="product-detail-block">
+            <div class="head">
+                <img src="${product.productAvatar!''}" alt=""/>
+                <div class="tool">
+                    <button class="btn btn-primary">立即购买</button>
+                    <button class="btn btn-primary">加入购物车</button>
+                </div>
+            </div>
 
+            <div class="body">
+                <div class="title span12">
+                    ${product.productTitle!''}
+                </div>
+                <div class="clear-both"></div>
+                <div class="content">
+                    ${product.productContent!''}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/html" id="product-list-tmpl">
@@ -71,7 +78,7 @@
                 <div class="caption">
                     <h3><%=list[i * 3 - j - 1].productTitle%></h3>
                     <p><%=list[i * 3 - j - 1].productContent.length > 40 ? list[i * 3 - j - 1].productContent.substring(0,40) : list[i * 3 - j - 1].productContent %></p>
-                    <p><a class="btn btn-primary" href="#">购买</a> <a class="btn btn-primary" href="#">加入购物车</a> <a class="btn" href="/product/detail?id=<%=list[i * 3 - j - 1].id%>">查看</a></p>
+                    <p><a class="btn btn-primary" href="#">购买</a> <a class="btn btn-primary" href="#">加入购物车</a> <a class="btn" href="#">查看</a></p>
                 </div>
             </div>
         </li>

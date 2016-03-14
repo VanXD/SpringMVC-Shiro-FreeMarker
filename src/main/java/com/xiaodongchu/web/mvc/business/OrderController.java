@@ -60,4 +60,9 @@ public class OrderController {
             return new RespJSON<>(RespCode.SUCCESS);
         }
     }
+
+    @RequestMapping("/buy")
+    public void buy(Order order, String[] productIds, Integer[] productAmount) {
+        orderServiceImpl.generateOrder(productIds, productAmount);
+    }
 }

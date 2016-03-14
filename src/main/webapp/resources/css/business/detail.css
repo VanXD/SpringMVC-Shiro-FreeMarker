@@ -1,0 +1,49 @@
+* {
+    font-family: "微软雅黑";
+}
+body {
+    position: relative;
+}
+.product-detail-block .head {
+    height: 300px;
+    position: relative;
+    /*width: 700px;*/
+    margin: 0 auto;
+}
+.product-detail-block .head img{
+    height: 100%;
+    width: 100%;
+}
+
+.product-detail-block {
+    text-align: center;
+}
+
+.body .title {
+    color: #fff;
+    background-color: #2bb673;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+}
+.body .content {
+    margin: 10px 0px;
+    background-color: rgb(247, 247, 247);
+    text-align: left;
+    text-indent: 20px;
+    min-height: 500px;
+}
+.clear-both {
+    clear: both;
+}
+.tool {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    text-align: right;
+}
+.mask {
+    position: absolute;
+    width: 1px;
+    height: 100vh;
+}

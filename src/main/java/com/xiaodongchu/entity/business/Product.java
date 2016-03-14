@@ -1,11 +1,14 @@
 package com.xiaodongchu.entity.business;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by wyd on 2016/3/11.
  */
-public class Product {
+public class Product implements Serializable{
+
+    private static final long serialVersionUID = -2582759665686539196L;
     private Long id;
     private Date productCreateTime;
     private Integer productStatus;

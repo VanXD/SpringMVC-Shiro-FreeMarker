@@ -1,9 +1,12 @@
 package com.xiaodongchu.vo.page;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/3/8.
  */
-public class Page {
+public class Page implements Serializable{
+    private static final long serialVersionUID = 4763104762078097873L;
     private Integer pageNo;
     private Integer pageSize;
     private Integer pageCount;
