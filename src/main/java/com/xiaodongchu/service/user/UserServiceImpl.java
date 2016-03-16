@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         //加密密码
         passwordHelper.encryptPassword(user);
-        return userDao.createUser(user);
+        User saveUser = userDao.createUser(user);
+        correlationRoles(saveUser.getId(), "customer");
+        return saveUser;
     }
 
     /**
@@ -58,6 +60,14 @@ public class UserServiceImpl implements UserService {
         return userDao.correlationRoles(userId, roleIds);
     }
 
+    /**
+     * 添加用户-角色关系
+     * @param userId
+     * @param roles
+     */
+    public int[] correlationRoles(Long userId, String... roles) {
+        return userDao.correlationRoles(userId, roles);
+    }
 
     /**
      * 移除用户-角色关系

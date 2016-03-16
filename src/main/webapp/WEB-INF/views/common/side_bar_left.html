@@ -15,6 +15,7 @@
                 </ul>
             </li>
             </@shiro.hasRole>
+            <@shiro.hasRole name="user">
             <li>
                 <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span
                         class="hidden-tablet"> 商品管理</span><span class="label label-important"> 3 </span></a>
@@ -27,6 +28,21 @@
                             class="hidden-tablet"> 权限管理 </span></a></li>
                 </ul>
             </li>
+            </@shiro.hasRole>
+            <@shiro.hasRole name="custom">
+            <li>
+                <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span
+                        class="hidden-tablet"> 我的</span><span class="label label-important"> 1 </span></a>
+                <ul>
+                    <li>
+                        <a class="submenu" href="/user/order">
+                            <i class="icon-file-alt"></i>
+                            <span class="hidden-tablet">我的订单</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            </@shiro.hasRole>
 
         </ul>
     </div>

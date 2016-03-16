@@ -80,6 +80,6 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(User user) {
         userService.createUser(user);
-        return "redirect:/index";
+        return "redirect:/user/login";
     }
 }

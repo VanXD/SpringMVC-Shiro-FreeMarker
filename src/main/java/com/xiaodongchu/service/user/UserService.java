@@ -29,6 +29,7 @@ public interface UserService {
      * @param roleIds
      */
     public int[] correlationRoles(Long userId, Long... roleIds);
+    public int[] correlationRoles(Long userId, String... roleIds);
 
 
     /**

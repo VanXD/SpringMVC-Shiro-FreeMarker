@@ -89,6 +89,11 @@ public class UserDaoImpl extends JdbcDaoSupportAbstract implements UserDao {
         return getJdbcTemplate().queryForObject(sql, Integer.class, userId, roleId) != 0;
     }
 
+    private boolean exists(Long userId, String role) {
+        String sql = "select count(1) from sys_users_roles sur LEFT JOIN sys_roles sr ON sur.role_id = sr.id where sur.user_id=? and sr.role=?";
+        return getJdbcTemplate().queryForObject(sql, Integer.class, userId, role) != 0;
+    }
+
 
     @Override
     public User findOne(Long userId) {
@@ -132,6 +137,26 @@ public class UserDaoImpl extends JdbcDaoSupportAbstract implements UserDao {
             setPageParams(page, sql.toString(), orderSQL, params);
         }
         return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(User.class));
+    }
+
+    @Override
+    public int[] correlationRoles(Long userId, String... roles) {
+        int[] rows = new int[0];
+        if(roles == null || roles.length == 0) {
+            return rows;
+        }
+        List<Object[]> params = new LinkedList<>();
+        String sql = "INSERT INTO sys_users_roles (user_id, role_id) VALUES ( ?, (SELECT sr.id FROM sys_roles sr WHERE sr.role = ?) )";
+//        getJdbcTemplate().batchUpdate()
+        for(String role : roles) {
+            if(!exists(userId, role)) {
+                params.add(new Object[]{userId, role});
+            }
+        }
+        if(params.size() > 0) {
+            rows = getJdbcTemplate().batchUpdate(sql, params);
+        }
+        return rows;
     }
 
 }

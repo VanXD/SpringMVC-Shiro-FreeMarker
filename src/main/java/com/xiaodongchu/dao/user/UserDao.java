@@ -25,4 +25,5 @@ public interface UserDao {
     Set<String> findPermissions(String username);
 
     List<User> pageByExample(User userExample, Page page);
+    public int[] correlationRoles(Long userId, String... roles);
 }

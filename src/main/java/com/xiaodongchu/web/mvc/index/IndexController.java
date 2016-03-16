@@ -17,6 +17,6 @@ public class IndexController {
 
     @RequestMapping("/admin")
     public String admin() {
-        return "redirect:/product/list";
+        return "admin";
     }
 }
