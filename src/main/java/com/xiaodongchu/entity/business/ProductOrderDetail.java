@@ -5,8 +5,8 @@ package com.xiaodongchu.entity.business;
  */
 public class ProductOrderDetail {
     private Long id;
-    private Long productAmount;
-    private Integer productId;
+    private Integer productAmount;
+    private Long productId;
     private String productTitle;
     private String productAvatar;
     private String productPrice;
@@ -20,19 +20,19 @@ public class ProductOrderDetail {
         this.id = id;
     }
 
-    public Long getProductAmount() {
+    public Integer getProductAmount() {
         return productAmount;
     }
 
-    public void setProductAmount(Long productAmount) {
+    public void setProductAmount(Integer productAmount) {
         this.productAmount = productAmount;
     }
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

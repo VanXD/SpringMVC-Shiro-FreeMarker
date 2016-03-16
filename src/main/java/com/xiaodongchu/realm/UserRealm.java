@@ -9,11 +9,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
 public class UserRealm extends AuthorizingRealm {
 
     private UserService userService;
@@ -55,6 +50,7 @@ public class UserRealm extends AuthorizingRealm {
                 ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt
                 getName()  //realm name
         );
+
         return authenticationInfo;
     }
 

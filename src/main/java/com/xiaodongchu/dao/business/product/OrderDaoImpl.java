@@ -34,7 +34,7 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
 
     @Override
     public Order insert(final Order order) {
-        final String sql = "INSERT INTO b_order (order_create_time, order_status, order_receive_address, order_receive_tel, order_express_number, order_total_price) VALUES(?,?,?,?,?,?)";
+        final String sql = "INSERT INTO b_order (order_create_time, order_status, user_id, user_name) VALUES(?,?,?,?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         getJdbcTemplate().update(new PreparedStatementCreator() {
             @Override
@@ -42,10 +42,8 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
                 PreparedStatement psst = connection.prepareStatement(sql, new String[]{"id"});
                 psst.setString(1, DateUtil.dateToString(order.getOrderCreateTime()));
                 psst.setInt(2, order.getOrderStatus());
-                psst.setString(3, order.getOrderReceiveAddress());
-                psst.setString(4, order.getOrderReceiveTel());
-                psst.setString(5, order.getOrderExpressNumber());
-                psst.setDouble(6, order.getOrderTotalPrice());
+                psst.setLong(3, order.getUserId());
+                psst.setString(4, order.getUsername());
                 return psst;
             }
         }, keyHolder);

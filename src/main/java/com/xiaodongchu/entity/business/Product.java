@@ -16,6 +16,24 @@ public class Product implements Serializable{
     private String productContent;
     private String productAvatar;
     private Double productPrice;
+    private Integer productStock;
+    private Integer productSales;
+
+    public Integer getProductStock() {
+        return productStock;
+    }
+
+    public void setProductStock(Integer productStock) {
+        this.productStock = productStock;
+    }
+
+    public Integer getProductSales() {
+        return productSales;
+    }
+
+    public void setProductSales(Integer productSales) {
+        this.productSales = productSales;
+    }
 
     public Long getId() {
         return id;

@@ -9,7 +9,7 @@ public class Order {
     private Long id;
     private Date orderCreateTime;
     /**
-     * 0：新，1：发货 2：完成
+     * 0：新，1：发货 2：完成 3：待付款 4：已付款
      */
     private Integer orderStatus;
     private String orderReceiveAddress;

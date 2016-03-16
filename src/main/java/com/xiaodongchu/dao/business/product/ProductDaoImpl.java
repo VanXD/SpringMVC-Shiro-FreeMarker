@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao {
     @Override
     public List<Product> pageByExample(Product productExample, Page page) {
-        StringBuilder sql = new StringBuilder("SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price FROM b_product bp");
+        StringBuilder sql = new StringBuilder("SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price, bp.product_stock, bp.product_sales FROM b_product bp");
         StringBuilder orderSQL = new StringBuilder(" ORDER BY bp.product_create_time DESC");
         List<Object> params = new LinkedList<>();
         if(page != null) {

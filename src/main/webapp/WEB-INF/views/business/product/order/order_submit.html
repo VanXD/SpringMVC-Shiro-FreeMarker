@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>订单管理</title>
+    <#include "/common/head.html" />
+</head>
+
+<body>
+<!-- start: Header -->
+<#include "/common/common_top.html" />
+<!-- start: Header -->
+
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>
+                    enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div class="container">
+            <div class="row-fluid sortable">
+                <div class="box span12">
+                    <div class="box-header" data-original-title>
+                        <h2><i class="halflings-icon user"></i><span class="break"></span>订单</h2>
+
+                        <div class="box-icon">
+                            <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                            <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <form class="form-horizontal" action="/order/checkout">
+                            <input type="hidden" name="userId" value="${order.userId!''}"/>
+                            <input type="hidden" name="username" value="${order.username!''}"/>
+                            <input type="hidden" name="id" value="${order.id!''}"/>
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="orderReceiveAddress">收货地址</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="orderReceiveAddress" name="orderReceiveAddress" type="text" value="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="orderReceiveTel">收货人电话</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="orderReceiveTel" name="orderReceiveTel" type="text" value="">
+                                    </div>
+                                </div>
+                                <#list products as product>
+                                    <div class="control-group">
+                                        <input type="hidden" name="productIds" value="${product.id!''}"/>
+                                        <label class="control-label">商品：${product.productTitle!''} 购买数量</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused productAmount" name="productAmount"  type="number" value=""> X ￥<span class="productPrice">${product.productPrice!''}</span>
+                                        </div>
+                                    </div>
+                                </#list>
+                                <div class="control-group">
+                                    <label class="control-label" for="orderTotalPrice">订单总价格</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="orderTotalPrice" readonly type="text" value="">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">结账</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!--/span-->
+
+            </div>
+            <!--/row-->
+        </div>
+        <!--/.fluid-container-->
+        <!-- end: Content -->
+    </div>
+    <!--/#content.span10-->
+</div>
+<!--/fluid-row-->
+
+<div class="modal hide fade" id="detail-order-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>订单详情</h3>
+    </div>
+    <div class="modal-body" id="order-product-detail-block">
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+        <a href="#" class="btn btn-primary" onclick="update()">保存</a>
+    </div>
+</div>
+<script type="text/html" id="order-product-detail-tmpl">
+    <label>订单编号：<%= order.id %></label>
+    <label>订单总价格：<%= order.orderTotalPrice %> </label>
+    <label>下单时间：<%= order.orderCreateTime %> </label>
+    <label>订单状态：<%= order.orderStatus %> </label>
+    <label>收货地址：<%= order.orderReceiveAddress %> </label>
+    <label>收货电话：<%= order.orderReceiveTel %> </label>
+    <label>快递单号：<%= order.orderExpressNumber %> </label>
+    <div>
+        <% for(var i = 0;i < productOrderDetails.length;i++){ %>
+        <div class="product-detail">
+            <label>商品：<%=productOrderDetails[i].productTitle %></label>
+            <label>商品图片：<span class="thumbnail"><img class="limit" src="<%=productOrderDetails[i].productAvatar %>"></span></label>
+            <label>商品单价：<%=productOrderDetails[i].productPrice %></label>
+            <label>商品数量：<%=productOrderDetails[i].productAmount %></label>
+        </div>
+        <% } %>
+    </div>
+</script>
+<#include "/common/footer.html" />
+<script>
+    $(function(){
+        $(".productAmount").blur(function(){
+            var totalPrice = 0;
+            $(".productAmount").each(function(i) {
+                var price = parseFloat($(this).siblings(".productPrice").html());
+                totalPrice += this.value * price;
+            });
+            $("#orderTotalPrice").val(totalPrice);
+        });
+    });
+</script>
+</body>
+</html>

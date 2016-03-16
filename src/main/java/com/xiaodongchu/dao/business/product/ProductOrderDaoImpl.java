@@ -21,4 +21,10 @@ public class ProductOrderDaoImpl extends JdbcDaoSupportAbstract implements Produ
         params.add(orderId);
         return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(ProductOrderDetail.class));
     }
+
+    @Override
+    public Integer insert(ProductOrderDetail productOrderDetail) {
+        String sql = "INSERT INTO b_product_order (product_id, product_amount, order_id) VALUES (?,?,?)";
+        return getJdbcTemplate().update(sql, productOrderDetail.getProductId(), productOrderDetail.getProductAmount(), productOrderDetail.getOrderId());
+    }
 }

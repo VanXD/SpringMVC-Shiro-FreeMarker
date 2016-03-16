@@ -10,4 +10,6 @@ import java.util.List;
 public interface ProductOrderDao {
 
     public List<ProductOrderDetail> selectByOrderId(Long orderId);
+
+    Integer insert(ProductOrderDetail productOrderDetail);
 }

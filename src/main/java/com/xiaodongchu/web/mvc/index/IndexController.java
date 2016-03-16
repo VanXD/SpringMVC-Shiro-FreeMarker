@@ -13,4 +13,10 @@ public class IndexController {
     public String index() {
         return "api/index/index";
     }
+
+
+    @RequestMapping("/admin")
+    public String admin() {
+        return "redirect:/product/list";
+    }
 }

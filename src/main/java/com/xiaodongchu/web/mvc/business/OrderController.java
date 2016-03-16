@@ -4,7 +4,9 @@ import com.xiaodongchu.component.response.RespCode;
 import com.xiaodongchu.component.response.RespJSON;
 import com.xiaodongchu.component.util.PageUtil;
 import com.xiaodongchu.entity.business.Order;
+import com.xiaodongchu.entity.business.Product;
 import com.xiaodongchu.service.business.product.OrderService;
+import com.xiaodongchu.service.business.product.ProductService;
 import com.xiaodongchu.vo.business.product.ProductOrderVO;
 import com.xiaodongchu.vo.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,8 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderService orderServiceImpl;
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping("/list")
     public String list(HttpServletRequest request, Model model, Order orderExample,
@@ -62,9 +67,32 @@ public class OrderController {
     }
 
     @RequestMapping("/buy")
-    public String buy(Model model, Order order, Long[] productIds, Integer[] productAmount) {
-        Order saveOrder = orderServiceImpl.generateOrder(order, productIds, productAmount);
+    public String buy(Model model, Order order, Long[] productIds) {
+        Order saveOrder = orderServiceImpl.generateOrder(order, productIds);
+        List<Product> products = new LinkedList<>();
+        for(Long productId : productIds) {
+            Product product = productService.findById(productId);
+            if(product != null) {
+                products.add(product);
+            }
+        }
         model.addAttribute("order", saveOrder);
+        model.addAttribute("products", products);
+        return "business/product/order/order_submit";
+    }
+
+    @RequestMapping("/checkout")
+    public String checkout (Model model, Order order, Long[] productIds, Integer[] productAmount) {
+        if(orderServiceImpl.checkout(order, productIds, productAmount) > 0) {
+            model.addAttribute("orderId", order.getId());
+            return "business/product/order/pay";
+        }
         return "";
+    }
+
+    @RequestMapping("/pay")
+    public String pay(Long orderId, String password) {
+        orderServiceImpl.pay(orderId, password);
+        return "/business/user/orders";
     }
 }
