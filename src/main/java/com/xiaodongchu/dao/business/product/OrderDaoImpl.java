@@ -71,7 +71,31 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
 
     @Override
     public Order findById(Long id) {
-        String sql = "SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price FROM b_order bo WHERE bo.id=?";
+        String sql = "SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price, bo.user_id, bo.user_name userName FROM b_order bo WHERE bo.id=?";
         return getJdbcTemplate().queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Order.class));
+    }
+
+    @Override
+    public List<Order> selectOrdersByUserId(Long userId, Page page) {
+        StringBuilder sql = new StringBuilder("SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price, bo.user_id, bo.user_name userName FROM b_order bo WHERE bo.user_id=?");
+        StringBuilder orderSQL = new StringBuilder(" ORDER BY bo.order_create_time DESC");
+        List<Object> params = new LinkedList<>();
+        params.add(userId);
+        if(page != null) {
+            setPageParams(page, sql.toString(), orderSQL, params);
+        }
+        return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(Order.class));
+    }
+
+    @Override
+    public List<Order> selectOrdersByUsername(String username, Page page) {
+        StringBuilder sql = new StringBuilder("SELECT bo.id, bo.order_create_time, bo.order_status, bo.order_receive_address, bo.order_receive_tel, bo.order_express_number, bo.order_total_price, bo.user_id, bo.user_name userName FROM b_order bo WHERE bo.user_name=?");
+        StringBuilder orderSQL = new StringBuilder(" ORDER BY bo.order_create_time DESC");
+        List<Object> params = new LinkedList<>();
+        params.add(username);
+        if(page != null) {
+            setPageParams(page, sql.toString(), orderSQL, params);
+        }
+        return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(Order.class));
     }
 }

@@ -1,10 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <title>订单管理</title>
+    <#include "/common/head.html" />
 </head>
-<body>
 
+<body>
+<!-- start: Header -->
+<#include "/common/common_top.html" />
+<!-- start: Header -->
+
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <#include "/common/side_bar_left.html" />
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>
+                    enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="index.html">官品管理</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">订单管理</a></li>
+            </ul>
+
+            <div class="row-fluid sortable">
+                <div class="box span12">
+                    <div class="box-header" data-original-title>
+                        <h2><i class="halflings-icon user"></i><span class="break"></span>订单</h2>
+
+                        <div class="box-icon">
+                            <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                            <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>购买人</th>
+                                <th>收货电话</th>
+                                <th>收货地址</th>
+                                <th>快递单号</th>
+                                <th>总价格</th>
+                                <th>创建时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list list as e>
+                                <tr>
+                                    <td>${e_index + 1}</td>
+                                    <td>${e.username}</td>
+                                    <td class="center">${e.orderReceiveTel!""}</td>
+                                    <td class="center">${e.orderReceiveAddress!""}</td>
+                                    <td class="center">${e.orderExpressNumber!""}</td>
+                                    <td class="center">${e.orderTotalPrice!""}</td>
+                                    <td class="center">${e.orderCreateTime!""}</td>
+                                    <td class="center">
+                                        <#switch e.orderStatus>
+                                            <#case 0>新增<#break>
+                                            <#case 1>已发货<#break>
+                                            <#case 2>完成<#break>
+                                            <#case 3>待付款<#break>
+                                            <#case 4>已付款<#break>
+                                        </#switch>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="#" onclick="showDetail(${e.id!''})">
+                                            <i class="halflings-icon white zoom-in"></i>
+                                        </a>
+                                        <#if e.orderStatus == 0>
+                                            <a class="btn btn-success" href="#" onclick="deliver(${e.id!''})">
+                                                <i class="halflings-icon white random"></i>
+                                            </a>
+                                        </#if>
+                                    </td>
+                                </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                        ${pageNavBar!""}
+                    </div>
+                </div>
+                <!--/span-->
+
+            </div>
+            <!--/row-->
+        </div>
+        <!--/.fluid-container-->
+        <!-- end: Content -->
+    </div>
+    <!--/#content.span10-->
+</div>
+<!--/fluid-row-->
+
+<div class="modal hide fade" id="detail-order-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>订单详情</h3>
+    </div>
+    <div class="modal-body" id="order-product-detail-block">
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+    </div>
+</div>
+<script type="text/html" id="order-product-detail-tmpl">
+    <label>订单编号：<%= order.id %></label>
+    <label>订单总价格：<%= order.orderTotalPrice %> </label>
+    <label>下单时间：<%= order.orderCreateTime %> </label>
+    <label>订单状态：<%= order.orderStatus %> </label>
+    <label>收货地址：<%= order.orderReceiveAddress %> </label>
+    <label>收货电话：<%= order.orderReceiveTel %> </label>
+    <label>快递单号：<%= order.orderExpressNumber %> </label>
+    <div>
+        <% for(var i = 0;i < productOrderDetails.length;i++){ %>
+        <div class="product-detail">
+            <label>商品：<%=productOrderDetails[i].productTitle %></label>
+            <label>商品图片：<span class="thumbnail"><img class="limit" src="<%=productOrderDetails[i].productAvatar %>"></span></label>
+            <label>商品单价：<%=productOrderDetails[i].productPrice %></label>
+            <label>商品数量：<%=productOrderDetails[i].productAmount %></label>
+        </div>
+        <% } %>
+    </div>
+</script>
+<#include "/common/footer.html" />
+<script>
+    function showDetail(orderId) {
+        $.ajax({
+            type : "GET",
+            url : "/order/detailById",
+            data : {orderId : orderId},
+            success : function(result) {
+                if(result.code == 0) {
+                    var orderDetail = result.result.orderDetail;
+                    var html = template.render("order-product-detail-tmpl", orderDetail);
+                    $("#order-product-detail-block").html(html);
+                    $("#detail-order-modal").modal();
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>

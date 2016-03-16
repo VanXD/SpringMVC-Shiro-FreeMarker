@@ -58,8 +58,8 @@ public class OrderController {
 
     @RequestMapping("/deliver")
     @ResponseBody
-    public RespJSON<Map> deliver(Long orderId) {
-        if(orderServiceImpl.deliver(orderId) < 1) {
+    public RespJSON<Map> deliver(Long orderId, String expressNumber) {
+        if(orderServiceImpl.deliver(orderId, expressNumber) < 1) {
             return new RespJSON<>(RespCode.FAIL);
         } else {
             return new RespJSON<>(RespCode.SUCCESS);

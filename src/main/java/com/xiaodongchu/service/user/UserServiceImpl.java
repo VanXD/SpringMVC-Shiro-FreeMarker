@@ -7,6 +7,9 @@ import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.service.PasswordHelper;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.user.UserRoleVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,5 +122,14 @@ public class UserServiceImpl implements UserService {
             userRoleVOList.add(userRoleVO);
         }
         return userRoleVOList;
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        String username = (String) subject.getPrincipal();
+        return userDao.findByUsername(username);
+
     }
 }

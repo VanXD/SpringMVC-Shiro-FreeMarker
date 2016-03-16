@@ -75,8 +75,14 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Integer deliver(Long orderId) {
-        return updateOrderStatus(orderId, 1);
+    public Integer deliver(Long orderId, String expressNumber) {
+        Order order = findById(orderId);
+        if(order == null) {
+            throw new RuntimeException("没有获取到订单");
+        }
+        order.setOrderStatus(1);
+        order.setOrderExpressNumber(expressNumber);
+        return update(order);
     }
 
     @Override
@@ -149,6 +155,16 @@ public class OrderServiceImpl implements OrderService{
         Order order = findById(orderId);
         order.setOrderStatus(4);
         orderDaoImpl.update(order);
+    }
+
+    @Override
+    public List<Order> findByUser(User currentUser, Page page) {
+        if(currentUser.getId() != null) {
+            return orderDaoImpl.selectOrdersByUserId(currentUser.getId(), page);
+        } else if (StringUtils.isEmpty(currentUser.getUsername())){
+            return orderDaoImpl.selectOrdersByUsername(currentUser.getUsername(), page);
+        }
+        return null;
     }
 
 }

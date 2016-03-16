@@ -74,13 +74,21 @@
                                     <td class="center">${e.orderExpressNumber!""}</td>
                                     <td class="center">${e.orderTotalPrice!""}</td>
                                     <td class="center">${e.orderCreateTime!""}</td>
-                                    <td class="center">${e.orderStatus!""}</td>
+                                    <td class="center">
+                                        <#switch e.orderStatus>
+                                            <#case 0>新增<#break>
+                                            <#case 1>已发货<#break>
+                                            <#case 2>完成<#break>
+                                            <#case 3>待付款<#break>
+                                            <#case 4>已付款<#break>
+                                        </#switch>
+                                    </td>
                                     <td>
                                         <a class="btn btn-success" href="#" onclick="showDetail(${e.id!''})">
                                             <i class="halflings-icon white zoom-in"></i>
                                         </a>
-                                        <#if e.orderStatus == 0>
-                                            <a class="btn btn-success" href="#" onclick="deliver(${e.id!''})">
+                                        <#if e.orderStatus == 4>
+                                            <a class="btn btn-success" href="#" onclick="delivery(${e.id!''})">
                                                 <i class="halflings-icon white random"></i>
                                             </a>
                                         </#if>
@@ -115,6 +123,29 @@
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">关闭</a>
         <a href="#" class="btn btn-primary" onclick="update()">保存</a>
+    </div>
+</div>
+<div class="modal hide fade" id="deliver-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>订单详情</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" id="deliver-form">
+            <input type="hidden" name="orderId" id="deliver-order-id" value=""/>
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label" for="expressNumber">快递单号</label>
+                    <div class="controls">
+                        <input class="input-xlarge focused" id="expressNumber" name="expressNumber" type="text" value="">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+        <a href="#" class="btn btn-primary" onclick="doDeliver()">保存</a>
     </div>
 </div>
 <script type="text/html" id="order-product-detail-tmpl">
@@ -156,8 +187,13 @@
         });
     }
 
-    function deliver(orderId) {
-        ajax("/order/deliver", "GET", {orderId : orderId});
+    function delivery(orderId) {
+        $("#deliver-order-id").val(orderId);
+        $("#deliver-modal").modal();
+    }
+
+    function doDeliver() {
+        ajax("/order/deliver", "GET", decodeURIComponent($("#deliver-form").serialize()));
     }
 </script>
 </body>

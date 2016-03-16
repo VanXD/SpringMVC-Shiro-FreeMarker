@@ -19,4 +19,8 @@ public interface OrderDao {
     public Integer delete (Order order);
 
     Order findById(Long id);
+
+    List<Order> selectOrdersByUserId(Long userId, Page page);
+
+    List<Order> selectOrdersByUsername(String username,Page page);
 }

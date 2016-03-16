@@ -61,4 +61,6 @@ public interface UserService {
     public Set<String> findPermissions(String username);
 
     List<UserRoleVO> roleList(User userExample, Page page);
+
+    public User getCurrentUser();
 }

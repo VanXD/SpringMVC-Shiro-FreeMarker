@@ -4,7 +4,9 @@ import com.xiaodongchu.component.response.RespCode;
 import com.xiaodongchu.component.response.RespDataCode;
 import com.xiaodongchu.component.response.RespJSON;
 import com.xiaodongchu.component.util.PageUtil;
+import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.entity.user.User;
+import com.xiaodongchu.service.business.product.OrderService;
 import com.xiaodongchu.service.user.UserService;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.user.UserRoleVO;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -28,6 +31,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     /**
      * 进入登陆界面
@@ -81,5 +86,22 @@ public class UserController {
     public String register(User user) {
         userService.createUser(user);
         return "redirect:/user/login";
+    }
+
+    @RequestMapping("/orders")
+    public String orders(HttpServletRequest request ,Model model,
+                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        Page page = new Page(pageNo, pageSize);
+        User currentUser = userService.getCurrentUser();
+        List<Order> orders = orderService.findByUser(currentUser, page);
+        if(orders == null) {
+            throw new RuntimeException("没有获取到订单数据");
+        } else {
+            model.addAttribute("list", orders);
+            String url = PageUtil.getRequestGetUrl(request);
+            model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
+        }
+        return "/business/user/orders";
     }
 }

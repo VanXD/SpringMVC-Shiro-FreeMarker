@@ -1,6 +1,7 @@
 package com.xiaodongchu.service.business.product;
 
 import com.xiaodongchu.entity.business.Order;
+import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.vo.business.product.ProductOrderVO;
 import com.xiaodongchu.vo.page.Page;
 
@@ -23,7 +24,7 @@ public interface OrderService {
 
     ProductOrderVO detailById(Long orderId);
 
-    Integer deliver(Long orderId);
+    Integer deliver(Long orderId, String expressNumber);
 
     public Integer updateOrderStatus(Long orderId, Integer status);
 
@@ -32,4 +33,6 @@ public interface OrderService {
     Integer checkout(Order order, Long[] productIds, Integer[] productAmount);
 
     void pay(Long orderId, String password);
+
+    List<Order> findByUser(User currentUser,Page page);
 }
