@@ -3,8 +3,6 @@ package com.xiaodongchu.component.response;
 /**
  * 与数据有关的枚举定义.
  *
- * @author liuyu
- * @since 2014年11月14日
  */
 public enum RespDataCode {
 	

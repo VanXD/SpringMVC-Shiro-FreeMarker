@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.xiaodongchu.dao.business.product.OrderDao;
 import com.xiaodongchu.dao.business.product.ProductDao;
 import com.xiaodongchu.dao.business.product.ProductOrderDao;
+import com.xiaodongchu.dao.business.product.ShoppingCartDao;
 import com.xiaodongchu.dao.user.UserDao;
 import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.entity.business.Product;
@@ -38,6 +39,8 @@ public class OrderServiceImpl implements OrderService{
     private UserDao userDaoImpl;
     @Autowired
     private PasswordHelper passwordHelper;
+    @Autowired
+    private ShoppingCartDao shoppingCartDaoImpl;
     @Override
     public List<Order> pageByExample(Order orderExample, Page page) {
         return orderDaoImpl.pageByExample(orderExample, page);
@@ -155,6 +158,26 @@ public class OrderServiceImpl implements OrderService{
         Order order = findById(orderId);
         order.setOrderStatus(4);
         orderDaoImpl.update(order);
+    }
+
+    public Integer pay(User user, Order orderExample, String pwd) {
+        User tmpUser = new User();
+        tmpUser.setUsername(user.getUsername());
+        tmpUser.setSalt(user.getSalt());
+        tmpUser.setPassword(pwd);
+        passwordHelper.encryptPassword(tmpUser, true);
+        if(!user.getPassword().equals(tmpUser.getPassword())) {
+            throw new RuntimeException("密码不正确！");
+        }
+        Order order = findById(orderExample.getId());
+        order.setOrderStatus(4);
+        order.setOrderReceiveAddress(orderExample.getOrderReceiveAddress());
+        order.setOrderReceiveTel(orderExample.getOrderReceiveTel());
+        Integer rows = orderDaoImpl.update(order);
+        if(rows > 0) {
+            shoppingCartDaoImpl.clear(user);
+        }
+        return orderDaoImpl.update(order);
     }
 
     @Override

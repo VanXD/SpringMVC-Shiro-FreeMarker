@@ -33,6 +33,7 @@ public interface OrderService {
     Integer checkout(Order order, Long[] productIds, Integer[] productAmount);
 
     void pay(Long orderId, String password);
+    public Integer pay(User user, Order orderExample, String pwd);
 
     List<Order> findByUser(User currentUser,Page page);
 }

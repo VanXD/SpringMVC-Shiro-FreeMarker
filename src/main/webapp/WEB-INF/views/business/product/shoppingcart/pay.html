@@ -35,13 +35,25 @@
                         </div>
                     </div>
                     <div class="box-content">
-                        <form class="form-horizontal" action="/order/pay">
-                            <input type="hidden" name="orderId" value="${orderId!''}"/>
+                        <form class="form-horizontal" action="/sc/pay" method="post">
+                            <input type="hidden" name="id" value="${order.id!''}"/>
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label" for="password">请输入登陆密码</label>
+                                    <label class="control-label" for="orderReceiveAddress">请输入收货地址</label>
                                     <div class="controls">
-                                        <input class="input-xlarge focused" id="password" name="password" type="password" value="">
+                                        <input class="input-xlarge focused" id="orderReceiveAddress" name="orderReceiveAddress" type="text" value="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="orderReceiveTel">请输入收货电话</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="orderReceiveTel" name="orderReceiveTel" type="text" value="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="pwd">请输入登陆密码</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="pwd" name="pwd" type="password" value="">
                                     </div>
                                 </div>
                                 <div class="form-actions">

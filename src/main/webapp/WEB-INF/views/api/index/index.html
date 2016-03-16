@@ -38,7 +38,7 @@
                 <div class="caption">
                     <h3><%=list[i * 3 - j - 1].productTitle%></h3>
                     <p><%=list[i * 3 - j - 1].productContent.length > 40 ? list[i * 3 - j - 1].productContent.substring(0,40) : list[i * 3 - j - 1].productContent %></p>
-                    <p><a class="btn btn-primary" href="#">购买</a> <a class="btn btn-primary" href="#">加入购物车</a> <a class="btn" href="/product/detail?id=<%=list[i * 3 - j - 1].id%>">查看</a></p>
+                    <p><a class="btn btn-primary" href="#">购买</a> <a class="btn btn-primary" onclick="addShoppingCart(<%=list[i * 3 - j - 1].id%>)">加入购物车</a> <a class="btn" href="/product/detail?id=<%=list[i * 3 - j - 1].id%>">查看</a></p>
                 </div>
             </div>
         </li>
@@ -108,6 +108,9 @@
         }
     });
 
+    function addShoppingCart(productId) {
+        ajax("/sc/save", "GET", {productId : productId});
+    }
 </script>
 </body>
 </html>
