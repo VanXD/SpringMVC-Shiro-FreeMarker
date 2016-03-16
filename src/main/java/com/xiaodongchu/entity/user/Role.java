@@ -2,11 +2,7 @@ package com.xiaodongchu.entity.user;
 
 import java.io.Serializable;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 public class Role implements Serializable {
     private Long id;
     private String role; //角色标识 程序中判断使用,如"admin"

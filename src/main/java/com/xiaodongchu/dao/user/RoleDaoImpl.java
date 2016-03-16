@@ -12,11 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 @Repository("roleDao")
 public class RoleDaoImpl extends JdbcDaoSupportAbstract implements RoleDao {
 

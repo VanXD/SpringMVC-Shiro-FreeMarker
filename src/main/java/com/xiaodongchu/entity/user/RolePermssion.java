@@ -2,12 +2,7 @@ package com.xiaodongchu.entity.user;
 
 import java.io.Serializable;
 
-/**
- * 用户角色关系
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 public class RolePermssion implements Serializable {
 
     private Long roleId;

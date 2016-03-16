@@ -22,11 +22,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.sql.DataSource;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-2-12
- * <p>Version: 1.0
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-beans.xml", "classpath:spring-shiro.xml"})
 @TransactionConfiguration(defaultRollback = false)
