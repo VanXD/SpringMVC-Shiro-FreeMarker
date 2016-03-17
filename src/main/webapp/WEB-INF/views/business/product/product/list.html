@@ -33,10 +33,10 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="icon-home"></i>
-                    <a href="index.html">权限管理</a>
+                    <a href="index.html">商品管理</a>
                     <i class="icon-angle-right"></i>
                 </li>
-                <li><a href="#">角色管理</a></li>
+                <li><a href="#">商品管理</a></li>
             </ul>
 
             <div class="row-fluid sortable">
@@ -98,6 +98,7 @@
         <!-- end: Content -->
     </div>
     <!--/#content.span10-->
+
 </div>
 <!--/fluid-row-->
 
@@ -118,7 +119,43 @@
                 <div class="control-group">
                     <label for="productPrice" class="control-label">商品价格</label>
                     <div class="controls">
-                        <input type="text" placeholder="请输入商品价格" name="productPrice" id="productPrice" class="input-xlarge focused">
+                        <input type="number" placeholder="请输入商品价格" name="productPrice" id="productPrice" class="input-xlarge focused">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productStock" class="control-label">库存</label>
+                    <div class="controls">
+                        <input type="number" placeholder="请输入商品库存" name="productStock" id="productStock" class="input-xlarge focused">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productBrand" class="control-label">品牌</label>
+                    <div class="controls">
+                        <input type="text" placeholder="请输入商品品牌" name="productBrand" id="productBrand" class="input-xlarge focused">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productModel" class="control-label">型号</label>
+                    <div class="controls">
+                        <input type="text" placeholder="请输入商品型号" name="productModel" id="productModel" class="input-xlarge focused">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productPublicTime" class="control-label">上市时间</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge mydatepicker" name="productPublicTime" id="productPublicTime" value="">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productWeight" class="control-label">重量</label>
+                    <div class="controls">
+                        <input type="number" placeholder="请输入商品重量" name="productWeight" id="productWeight" class="input-xlarge focused">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="productWorkingTemperature" class="control-label">工作温度</label>
+                    <div class="controls">
+                        <input type="text" placeholder="请输入商品价格" name="productWorkingTemperature" id="productWorkingTemperature" class="input-xlarge focused">
                     </div>
                 </div>
                 <div class="control-group">
@@ -175,6 +212,42 @@
         </div>
     </div>
     <div class="control-group">
+        <label for="productStock" class="control-label">库存</label>
+        <div class="controls">
+            <input value="<%=productStock%>" type="number" placeholder="请输入商品库存" name="productStock" id="update-productStock" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productBrand" class="control-label">品牌</label>
+        <div class="controls">
+            <input value="<%=productBrand%>" type="text" placeholder="请输入商品品牌" name="productBrand" id="update-productBrand" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productModel" class="control-label">型号</label>
+        <div class="controls">
+            <input value="<%=productModel%>" type="text" placeholder="请输入商品型号" name="productModel" id="update-productModel" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productPublicTime" class="control-label">上市时间</label>
+        <div class="controls">
+            <input value="<%=productPublicTime%>" type="text" class="input-xlarge mydatepicker" name="productPublicTime" id="update-productPublicTime">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productWeight" class="control-label">重量</label>
+        <div class="controls">
+            <input value="<%=productWeight%>" type="number" placeholder="请输入商品重量" name="productWeight" id="update-productWeight" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="productWorkingTemperature" class="control-label">工作温度</label>
+        <div class="controls">
+            <input value="<%=productWorkingTemperature%>" type="number" placeholder="请输入商品价格" name="productWorkingTemperature" id="update-productWorkingTemperature" class="input-xlarge focused">
+        </div>
+    </div>
+    <div class="control-group">
         <label for="productContent" class="control-label">商品描述</label>
         <div class="controls">
             <input value="<%= productContent %>" type="text" placeholder="请输入对该商品的描述" name="productContent" id="update-productContent" class="input-xlarge focused">
@@ -191,6 +264,9 @@
 </script>
 <#include "/common/footer.html" />
 <script>
+    $(".mydatepicker").datepicker({
+        dateFormat:"yy-mm-dd"
+    });
     function saveShow() {
         $("#save-product-modal").modal();
     }
@@ -208,6 +284,9 @@
                     var product = result.result.product;
                     var html = template.render("update-product-fieldset-tmpl", product);
                     $("#update-product-fieldset").html(html);
+                    $(".mydatepicker").datepicker({
+                        dateFormat:"yy-mm-dd"
+                    });
                 } else {
                     alert(result.message);
                 }

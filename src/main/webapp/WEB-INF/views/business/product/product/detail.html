@@ -26,6 +26,29 @@
                 <div class="title span12">
                     ${product.productTitle!''}
                 </div>
+                <div class="attr" style="background-color: white;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>库存：${product.productStock!''}</td>
+                                <td class="center">已售：${product.productSales!''}</td>
+                                <td class="center">品牌：${product.productBrand!''}</td>
+                            </tr>
+                            <tr>
+                                <td class="center">型号：${product.productModel!''}</td>
+                                <td class="center">重量：${product.productWeight!''}</td>
+                                <td class="center">工作温度：${product.productWorkingTemperature!''}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="clear-both"></div>
                 <div class="content">
                     ${product.productContent!''}

@@ -53,7 +53,7 @@
         <property name="freemarkerSettings" ref="freemarkerConfiguration" />
         <property name="freemarkerVariables">
             <map>
-                <entry key="apiPrefix" value="http://localhost:8080"></entry>
+                <entry key="apiPrefix" value="http://localhost:5014"></entry>
             </map>
         </property>
     </bean>

@@ -1,5 +1,9 @@
 package com.xiaodongchu.entity.business;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xiaodongchu.component.json.CustomDateSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +22,53 @@ public class Product implements Serializable{
     private Double productPrice;
     private Integer productStock;
     private Integer productSales;
+    private String productBrand;
+    private String productModel;
+    @JsonSerialize(using = CustomDateSerializer.class)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date productPublicTime;
+    private Double productWeight;
+    private Float productWorkingTemperature;
+
+    public String getProductBrand() {
+        return productBrand;
+    }
+
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
+    }
+
+    public Date getProductPublicTime() {
+        return productPublicTime;
+    }
+
+    public void setProductPublicTime(Date productPublicTime) {
+        this.productPublicTime = productPublicTime;
+    }
+
+    public Double getProductWeight() {
+        return productWeight;
+    }
+
+    public void setProductWeight(Double productWeight) {
+        this.productWeight = productWeight;
+    }
+
+    public Float getProductWorkingTemperature() {
+        return productWorkingTemperature;
+    }
+
+    public void setProductWorkingTemperature(Float productWorkingTemperature) {
+        this.productWorkingTemperature = productWorkingTemperature;
+    }
 
     public Integer getProductStock() {
         return productStock;

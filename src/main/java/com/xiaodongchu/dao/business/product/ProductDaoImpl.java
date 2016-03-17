@@ -17,7 +17,10 @@ import java.util.List;
 public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao {
     @Override
     public List<Product> pageByExample(Product productExample, Page page) {
-        StringBuilder sql = new StringBuilder("SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price, bp.product_stock, bp.product_sales FROM b_product bp");
+        StringBuilder sql = new StringBuilder("SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content," +
+                " bp.product_avatar, bp.product_price, bp.product_stock, bp.product_sales, bp.product_brand,bp.product_model,bp.product_public_time," +
+                "bp.product_weight,bp.product_working_temperature" +
+                " FROM b_product bp");
         StringBuilder orderSQL = new StringBuilder(" ORDER BY bp.product_create_time DESC");
         List<Object> params = new LinkedList<>();
         if(page != null) {
@@ -28,14 +31,14 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
 
     @Override
     public Integer insert(Product product) {
-        String sql = "INSERT INTO b_product (product_create_time, product_status, product_title, product_content, product_avatar, product_price) VALUES(?,?,?,?,?,?)";
-        return getJdbcTemplate().update(sql, new Object[]{new Date(), product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice()});
+        String sql = "INSERT INTO b_product (product_create_time, product_status, product_title, product_content, product_avatar, product_price, product_stock, product_brand,product_model,product_public_time,product_weight,product_working_temperature) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        return getJdbcTemplate().update(sql, new Object[]{new Date(), product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice(), product.getProductStock(), product.getProductBrand(), product.getProductModel(), product.getProductPublicTime(), product.getProductWeight(), product.getProductWorkingTemperature()});
     }
 
     @Override
     public Integer update(Product product) {
-        String sql = "UPDATE b_product SET product_status = ?, product_title = ?, product_content = ?, product_avatar = ?, product_price = ? WHERE id = ?";
-        return getJdbcTemplate().update(sql, new Object[]{product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice(), product.getId()});
+        String sql = "UPDATE b_product SET product_status = ?, product_title = ?, product_content = ?, product_avatar = ?, product_price = ?,product_stock=?,product_brand=?,product_model=?,product_public_time=?,product_weight=?,product_working_temperature=? WHERE id = ?";
+        return getJdbcTemplate().update(sql, new Object[]{product.getProductStatus(), product.getProductTitle(), product.getProductContent(), product.getProductAvatar(), product.getProductPrice(),product.getProductStock(), product.getProductBrand(), product.getProductModel(), product.getProductPublicTime(), product.getProductWeight(), product.getProductWorkingTemperature(), product.getId()});
     }
 
     @Override
@@ -46,7 +49,7 @@ public class ProductDaoImpl extends JdbcDaoSupportAbstract implements ProductDao
 
     @Override
     public Product findById(Long id) {
-        String sql = "SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price FROM b_product bp WHERE bp.id = ?";
+        String sql = "SELECT bp.id, bp.product_create_time, bp.product_status, bp.product_title, bp.product_content, bp.product_avatar, bp.product_price, bp.product_stock, bp.product_sales, bp.product_brand,bp.product_model,bp.product_public_time,bp.product_weight,bp.product_working_temperature FROM b_product bp WHERE bp.id = ?";
         return getJdbcTemplate().queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Product.class));
     }
 }

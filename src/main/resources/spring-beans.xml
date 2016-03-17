@@ -36,6 +36,7 @@
 
     <bean id="objectMapper"
           class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="simpleDateFormat" value="yyyy-MM-dd HH:mm:ss"/>
         <property name="featuresToEnable">
             <array>
                 <util:constant
