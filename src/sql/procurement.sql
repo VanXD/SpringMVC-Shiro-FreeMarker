@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2016-03-17 00:29:20
+Date: 2016-03-18 12:11:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,24 +112,31 @@ CREATE TABLE `b_product` (
   `product_price` double(10,2) NOT NULL DEFAULT '0.00',
   `product_stock` int(11) NOT NULL DEFAULT '0',
   `product_sales` int(11) DEFAULT '0',
+  `product_brand` varchar(255) DEFAULT '',
+  `product_model` varchar(255) DEFAULT '',
+  `product_public_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `product_weight` double DEFAULT '0',
+  `product_working_temperature` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of b_product
 -- ----------------------------
-INSERT INTO `b_product` VALUES ('2', '2016-03-10 09:07:13', '0', 'BBB', 'CCC', '\\resources\\img\\upload\\6ec5172de17e4f508726b52653bee03b.jpeg', '333.30', '0', '0');
-INSERT INTO `b_product` VALUES ('3', '2016-03-10 09:07:13', '0', 'CCC', 'dsaf', '\\resources\\img\\upload\\9298b69dd9804741be75a8a1002b30fa.png', '300.51', '0', '0');
-INSERT INTO `b_product` VALUES ('4', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('5', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('6', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('7', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('8', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('9', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('10', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('11', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('12', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0');
-INSERT INTO `b_product` VALUES ('13', '2016-03-10 16:38:55', '0', '蛋糕', '精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕111111111111111111111111111111', '\\resources\\img\\upload\\9b2e24d14b0a487ca034ce98dc659e54.jpeg', '12412.41', '0', '0');
+INSERT INTO `b_product` VALUES ('2', '2016-03-10 09:07:13', '0', 'BBB', 'CCC', '\\resources\\img\\upload\\6ec5172de17e4f508726b52653bee03b.jpeg', '333.30', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('3', '2016-03-10 09:07:13', '0', 'CCC', 'dsaf', '\\resources\\img\\upload\\9298b69dd9804741be75a8a1002b30fa.png', '300.51', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('4', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('5', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('6', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('7', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('8', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('9', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('10', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('11', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('12', '2016-03-10 09:07:13', '0', 'aaaaa', 'bbbbbb', '/resources/img/upload/17.jpg', '100.50', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('13', '2016-03-10 16:38:55', '0', '蛋糕', '精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕精美蛋糕111111111111111111111111111111', '\\resources\\img\\upload\\9b2e24d14b0a487ca034ce98dc659e54.jpeg', '12412.41', '0', '0', '', '', '2016-03-17 18:52:19', '0', '0');
+INSERT INTO `b_product` VALUES ('14', '2016-03-17 19:25:37', '0', '213', '312', '\\resources\\img\\upload\\6b3457d645934c5dbf73e36290c65eaa.jpeg', '213.00', '21312', '0', '31', '31', null, '313', '321');
+INSERT INTO `b_product` VALUES ('15', '2016-03-17 20:00:48', '0', '23aaaaaaaa', '231', '\\resources\\img\\upload\\f724408f98bd4b93a7ddb57a24993fba.jpeg', '12321.00', '3213', '0', '2312', '321', '2016-03-18 00:00:00', '3213', '123');
 
 -- ----------------------------
 -- Table structure for b_product_order
@@ -179,7 +186,7 @@ CREATE TABLE `b_shoping_cart` (
   `product_amount` int(11) NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of b_shoping_cart
