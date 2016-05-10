@@ -190,4 +190,13 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
+    @Override
+    public Double getPriceCountByTime(String dateTime) {
+        return orderDaoImpl.countPriceByTime(dateTime);
+    }
+
+    public Integer getOrderCountByTime(String dateTime) {
+        return orderDaoImpl.countOrderByTime(dateTime);
+    }
+
 }

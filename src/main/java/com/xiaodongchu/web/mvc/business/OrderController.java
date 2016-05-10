@@ -93,6 +93,6 @@ public class OrderController {
     @RequestMapping("/pay")
     public String pay(Long orderId, String password) {
         orderServiceImpl.pay(orderId, password);
-        return "/business/user/orders";
+        return "redirect:list";
     }
 }

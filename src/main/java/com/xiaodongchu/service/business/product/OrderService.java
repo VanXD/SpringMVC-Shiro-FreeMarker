@@ -4,6 +4,7 @@ import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.entity.user.User;
 import com.xiaodongchu.vo.business.product.ProductOrderVO;
 import com.xiaodongchu.vo.page.Page;
+import org.quartz.SimpleTrigger;
 
 import java.util.List;
 
@@ -36,4 +37,8 @@ public interface OrderService {
     public Integer pay(User user, Order orderExample, String pwd);
 
     List<Order> findByUser(User currentUser,Page page);
+
+    Double getPriceCountByTime(String date);
+
+    public Integer getOrderCountByTime(String dateTime);
 }

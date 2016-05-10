@@ -23,4 +23,8 @@ public interface OrderDao {
     List<Order> selectOrdersByUserId(Long userId, Page page);
 
     List<Order> selectOrdersByUsername(String username,Page page);
+
+    Double countPriceByTime(String dateTime);
+
+    public Integer countOrderByTime(String dateTime);
 }

@@ -1,10 +1,12 @@
 package com.xiaodongchu.dao.business.product;
 
+import com.alibaba.druid.util.StringUtils;
 import com.xiaodongchu.component.util.DateUtil;
 import com.xiaodongchu.dao.JdbcDaoSupportAbstract;
 import com.xiaodongchu.entity.business.Order;
 import com.xiaodongchu.vo.page.Page;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.InterruptibleBatchPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -97,5 +99,26 @@ public class OrderDaoImpl extends JdbcDaoSupportAbstract implements OrderDao {
             setPageParams(page, sql.toString(), orderSQL, params);
         }
         return getJdbcTemplate().query(sql.append(orderSQL).toString(), params.toArray(), BeanPropertyRowMapper.newInstance(Order.class));
+    }
+
+    @Override
+    public Double countPriceByTime(String dateTime) {
+        String sql = "SELECT SUM(order_total_price) from b_order WHERE 1 = 1 AND order_status = 1";
+        List<Object> params = new LinkedList<>();
+        if(!StringUtils.isEmpty(dateTime)) {
+            params.add(dateTime);
+            sql += " AND order_create_time >= ?";
+        }
+        return getJdbcTemplate().queryForObject(sql, params.toArray(), Double.class);
+    }
+
+    public Integer countOrderByTime(String dateTime) {
+        String sql = "SELECT count(id) from b_order WHERE 1 = 1  AND order_status = 1";
+        List<Object> params = new LinkedList<>();
+        if(!StringUtils.isEmpty(dateTime)) {
+            params.add(dateTime);
+            sql += " AND order_create_time >= ?";
+        }
+        return getJdbcTemplate().queryForObject(sql, params.toArray(), Integer.class);
     }
 }

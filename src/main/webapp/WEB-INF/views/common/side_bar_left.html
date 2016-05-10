@@ -47,7 +47,17 @@
                 </ul>
             </li>
             </@shiro.hasRole>
-
+            <@shiro.hasRole name="admin">
+            <li>
+                <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span
+                        class="hidden-tablet"> 订单统计</span><span class="label label-important"> 1 </span></a>
+                <ul>
+                    <li>
+                        <a class="submenu" href="/orderStat/stat"><i class="icon-file-alt"></i><span class="hidden-tablet"> 销售统计</span></a>
+                    </li>
+                </ul>
+            </li>
+            </@shiro.hasRole>
         </ul>
     </div>
 </div>
