@@ -35,6 +35,11 @@
 		
 	<style type="text/css">
 		body { background: url(/resources/img/bg-login.jpg) !important; }
+		.tip {
+			color: red !important;
+			font-size: 16px;
+			text-align: left;
+		}
 	</style>
 </head>
 
@@ -45,10 +50,13 @@
 			<div class="row-fluid">
 				<div class="login-box">
 					<div class="icons">
-						<a href="/index.html"><i class="halflings-icon home"></i></a>
+						<a href="/index"><i class="halflings-icon home"></i></a>
 						<a href="#"><i class="halflings-icon cog"></i></a>
 					</div>
 					<h2>登陆</h2>
+					<#if loginError??>
+						<p class="tip">${loginError}</p>
+					</#if>
 					<form class="form-horizontal" action="" method="post">
 						<fieldset>
 							<div class="input-prepend" title="Username">
@@ -82,9 +90,7 @@
 			
 
 	</div><!--/.fluid-container-->
-	
 		</div><!--/fluid-row-->
-	
 	<!-- start: JavaScript-->
 
 		<script src="/resources/js/jquery-1.9.1.min.js"></script>

@@ -10,6 +10,7 @@ import com.xiaodongchu.service.business.product.OrderService;
 import com.xiaodongchu.service.user.UserService;
 import com.xiaodongchu.vo.page.Page;
 import com.xiaodongchu.vo.user.UserRoleVO;
+import org.apache.shiro.authc.AccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
- *
  * Created by wyd on 2016/3/3.
  */
 @Controller
@@ -36,6 +35,7 @@ public class UserController {
 
     /**
      * 进入登陆界面
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -43,10 +43,20 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String loginPost(HttpServletRequest request, Model model) {
+        Object failure = request.getAttribute("shiroLoginFailure");
+        if(null == failure) {
+            return "redirect:index";
+        }
+        model.addAttribute("loginError", "用户名或密码错误！");
+        return "login";
+    }
+
     @RequestMapping("/correlationRoles")
     @ResponseBody
     public RespJSON<Object> correlationRoles(Long userId, Long[] roleIds) {
-        if(roleIds == null || roleIds.length < 1) {
+        if (roleIds == null || roleIds.length < 1) {
             return new RespJSON<>(RespDataCode.USER_ROLE_CHOOSE);
         }
         userService.correlationRoles(userId, roleIds);
@@ -56,7 +66,7 @@ public class UserController {
     @RequestMapping("/uncorrelationRoles")
     @ResponseBody
     public RespJSON<Object> unCorrelationRoles(Long userId, Long[] roleIds) {
-        if(roleIds == null || roleIds.length < 1) {
+        if (roleIds == null || roleIds.length < 1) {
             return new RespJSON<>(RespDataCode.USER_ROLE_CHOOSE);
         }
         userService.uncorrelationRoles(userId, roleIds);
@@ -65,11 +75,11 @@ public class UserController {
 
 
     @RequestMapping("/roleList")
-    public String list(HttpServletRequest request, Model model,User userExample,
+    public String list(HttpServletRequest request, Model model, User userExample,
                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         Page page = new Page(pageNo, pageSize);
-        List<UserRoleVO> userRoleVOList =  userService.roleList(userExample, page);
+        List<UserRoleVO> userRoleVOList = userService.roleList(userExample, page);
         model.addAttribute("list", userRoleVOList);
         String url = PageUtil.getRequestGetUrl(request);
         model.addAttribute("pageNavBar", PageUtil.getPageNavBar(page, url));
@@ -89,13 +99,13 @@ public class UserController {
     }
 
     @RequestMapping("/orders")
-    public String orders(HttpServletRequest request ,Model model,
+    public String orders(HttpServletRequest request, Model model,
                          @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                          @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         Page page = new Page(pageNo, pageSize);
         User currentUser = userService.getCurrentUser();
         List<Order> orders = orderService.findByUser(currentUser, page);
-        if(orders == null) {
+        if (orders == null) {
             throw new RuntimeException("没有获取到订单数据");
         } else {
             model.addAttribute("list", orders);

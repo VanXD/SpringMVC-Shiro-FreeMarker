@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="../index.html"><span>Metro</span></a>
+            <a class="brand" href="../index.html"><span>电子控制设备采购系统</span></a>
 
             <!-- start: Header Menu -->
             <div class="nav-no-collapse header-nav">
@@ -22,9 +22,15 @@
                             <li class="dropdown-menu-title">
                                 <span>帐户设置</span>
                             </li>
-                            <li><a href="/sc/list"><i class="halflings-icon off"></i> 我的购物车</a></li>
-                            <li><a href="/user/orders"><i class="halflings-icon off"></i> 我的订单</a></li>
-                            <li><a href="/user/logout"><i class="halflings-icon off"></i> 登出</a></li>
+                            <@shiro.user>
+                                <li><a href="/sc/list"><i class="halflings-icon off"></i> 我的购物车</a></li>
+                                <li><a href="/user/orders"><i class="halflings-icon off"></i> 我的订单</a></li>
+                                <li><a href="/user/logout"><i class="halflings-icon off"></i> 登出</a></li>
+                            </@shiro.user>
+                            <@shiro.guest>
+                                <li><a href="/user/register"><i class="halflings-icon off"></i> 注册</a></li>
+                                <li><a href="/user/login"><i class="halflings-icon off"></i> 登陆</a></li>
+                            </@shiro.guest>
                         </ul>
                     </li>
                     <!-- end: User Dropdown -->
