@@ -87,11 +87,13 @@
                                         <a class="btn btn-success" href="#" onclick="showDetail(${e.id!''})">
                                             <i class="halflings-icon white zoom-in"></i>
                                         </a>
+                                        <@shiro.hasRole name="admin">
                                         <#if e.orderStatus == 4>
                                             <a class="btn btn-success" href="#" onclick="delivery(${e.id!''})">
                                                 <i class="halflings-icon white random"></i>
                                             </a>
                                         </#if>
+                                        </@shiro.hasRole>
                                     </td>
                                 </tr>
                             </#list>
